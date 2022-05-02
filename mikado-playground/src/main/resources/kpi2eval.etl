@@ -2,10 +2,16 @@ import "kpi-providers.eol";
 
 pre{
 var javaDate = new Native("java.util.Date");
+var instant = Native("java.time.Instant");
+var duration = Native("java.time.Duration");
+
+var start = instant.now();
 
 var smartcity=sc!SmartCity.all.first;
 ("Evaluating "+smartcity.city+"...").println();
 }
+
+
 
 rule kpi2evaluated
 transform kpimodel : Source!KpiModel
@@ -173,5 +179,10 @@ eval.targetvalue = aggr.targetvalue;
 
 post{
 "Evaluation complete.".println();
+var end = instant.now();
+var elapsedTime : Real = duration.between(start,end).toMillis();
+("Runtime evaluation took "+elapsedTime+" ms").println();
+
+
 }
 
