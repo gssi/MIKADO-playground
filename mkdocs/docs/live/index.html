@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/gssi/MIKADO-HTML-css-js/css/joint.css" type="text/css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    
+   
+
+    <script src="js/d3.v5.min.js" from="https://d3js.org/d3.v5.min.js"></script>
+    <script src="js/wasm/index.min.js" from="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
+    <script src="js/d3-graphviz.js" from="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
+    <script src="js/metro.min.js" from="https://cdn.metroui.org.ua/v4.4.3/js/metro.min.js"></script>
+    <script src="js/ace/ace.js" from="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/eol.js" type="text/javascript"></script>
+    <script src="js/etl.js" type="text/javascript"></script>
+    <script src="js/evl.js" type="text/javascript"></script>
+    <script src="js/epl.js" type="text/javascript"></script>
+    <script src="js/egl.js" type="text/javascript"></script>
+    <script src="js/emfatic.js" type="text/javascript"></script>
+
+</head>
+<body class="h-100" onresize="fit()">
+    <div id="navview" data-role="navview">
+        <div class="navview-pane">
+            <button class="pull-button">
+                <span class="default-icon-menu"></span>
+            </button>
+            <ul class="navview-menu">
+                <li class="item-header">MIKADO Playground</li>
+                <li class="item-separator"></li>
+                <li class="item-separator" id="examples-end"></li>
+                <li>
+                    
+                    <a href="#" onclick="about(event)">
+                        <span class="icon"><span class="mif-example-16 mif-info"></span></span>
+                        <span class="caption">About</span>
+                    </a>
+                    <a href="../" >
+                        <span class="icon"><span class="mif-example-16 mif-home"></span></span>
+                        <span class="caption">Home (back)</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="navview-content">
+            <div data-role="splitter"  class="h-100" data-split-mode="vertical" style="min-height: 600px;">
+                <div data-role="splitter" class="h-100" data-split-sizes="50, 50" id="splitter">
+                    
+                    <div class="d-flex flex-justify-left flex-align-left" data-role="panel" data-title-caption="Smart City definition">
+                        <div id="SCEditor" class="editor" style="height: 500px; width: 100%"></div>
+                    </div>  
+                    <div class="d-flex flex-justify-right flex-align-right" data-role="panel" data-title-caption="KPIs"> 
+                        <div id="kpiEditor" class="editor" style="height: 500px; width: 100%"></div>
+                    </div>  
+                </div>
+                <div data-role="splitter"  class="h-100" data-split-mode="vertical" style="min-height: 200px;" >
+                    <div class="d-flex flex-justify-left flex-align-left" data-role="panel" data-title-caption="Console" data-custom-buttons="customButtons" style="min-height: 100px;">
+                        <div id="consoleEditor" class="editor" style="height: 100px; width: 100%">Click the button to trigger the evaluation...</div>
+                   </div>
+                </div>
+                <div data-role="splitter"  class="h-100" data-split-mode="vertical" style="min-height: 1000px;" >
+                    <div class="d-flex flex-justify-left flex-align-left" data-role="panel" data-title-caption="Generated Dashboard" >
+                        <div class="d-flex flex-justify-center flex-align-left"  id="evalresult"></div>
+                    </div>
+                 </div>
+            </div>
+             </div>
+    </div>
+    <div id="about-info-box" class="info-box" data-role="infobox" data-width="80%" style="overflow-y: auto;">
+        <span class="button square closer"></span>
+            <div class="info-box-content">
+                <h3>About MIKADO</h3>
+                MIKADO is a project created by Maria Teresa Rossi for her PhD thesis under the supervision of Ludovico Iovino and Manuel Wimmer,  with the collaboration of Martina De Sanctis. 
+                "MIKADO - A Smart City KPIs Assessment Modeling Framework" is a framework that enables a qualitative assessment of Smart Cities based on Key Performance Indicators (KPIs). The assessment is carried out in terms of smartness and sustainability to support the inclusive growth of smart cities with respect to the European Sustainable Development Goals (SDGs). MIKADO uses Model-Driven Engineering techniques to model cities and define KPIs using standard and processable languages.
+                <a href="https://modeling-languages.com/mikado-smart-city-kpis-assessment-modeling/">More info</a>.<br>
+                This live environment is based and inspired to the <a href="https://www.eclipse.org/epsilon/live/">Epsilon Playground</a>.
+            </div>
+        </div>
+    <script>
+    var consoleEditor;
+    var SCEditor;
+    var kpiEditor;
+    var editors;
+    var examples = {};
+    fetchExamples();
+    var json;
+
+        function setup(){
+        
+            Array.from(document.querySelectorAll('.editor')).forEach(function(e) {
+            var editor = ace.edit(e);
+            editor.setTheme("ace/theme/eclipse");
+            editor.renderer.setShowGutter(false);
+            editor.setFontSize("1rem");
+            editor.setOptions({
+                fontSize: "11pt",
+                useSoftTabs: true
+            });
+        });
+       
+        SCEditor = ace.edit(document.getElementById('SCEditor'));
+        kpiEditor = ace.edit(document.getElementById('kpiEditor'));        
+        consoleEditor = ace.edit(document.getElementById('consoleEditor'));
+
+        editors = [SCEditor, kpiEditor, consoleEditor];
+
+        editors.forEach(e => e.setShowPrintMargin(false));
+
+        kpiEditor.getSession().setMode("ace/mode/xml");
+        SCEditor.getSession().setMode("ace/mode/xml");
+
+        kpiEditor.getSession().on('change', function() {
+          updateFlexmiEditorSyntaxHighlighting(kpiEditor);
+        });
+        
+        SCEditor.getSession().on('change', function() {
+          updateFlexmiEditorSyntaxHighlighting(SCEditor);
+        });
+
+        
+        setEditorValue(SCEditor, json.scflexmi);
+        setEditorValue(kpiEditor, json.kpiflexmi);
+
+        updateFlexmiEditorSyntaxHighlighting(SCEditor);
+        updateFlexmiEditorSyntaxHighlighting(kpiEditor);
+
+
+        $(window).keydown(function(event) {
+          if ((event.metaKey && event.keyCode == 83) || (event.ctrlKey && event.keyCode == 83)) { 
+            run();
+            event.preventDefault(); 
+          }
+        });
+
+        }
+
+        
+
+        function fetchExample(id) {
+        var example = examples[id];
+       
+        if (example.scflexmi != null) example.scflexmi = fetchFile(example.scflexmi);
+        if (example.kpiflexmi != null) example.kpiflexmi = fetchFile(example.kpiflexmi);
+      
+        return example;
+    }
+
+    function updateFlexmiEditorSyntaxHighlighting(editor) {
+        var val = editor.getSession().getValue();
+        if ((val.trim()+"").startsWith("<")) {
+            editor.getSession().setMode("ace/mode/xml");
+        }
+        else {
+            editor.getSession().setMode("ace/mode/yaml");
+        }
+    }
+
+    function fetchFile(name) {
+        var xhr = new XMLHttpRequest();
+        var url = "examples/" + name;
+        xhr.open("GET", url, false);
+        xhr.send(data);
+        if (xhr.status === 200) {    
+            return xhr.responseText;
+        }
+    }
+    
+     function fetchExamples() {
+        var xhr = new XMLHttpRequest();
+        var url = "examples/examples.json";
+        xhr.open("GET", url, false);
+        xhr.send(data);
+        if (xhr.status === 200) {    
+            var json = JSON.parse(xhr.responseText);
+            var examplesEnd = document.getElementById("examples-end");
+        
+            for (const example of json.examples) {
+                examples[example.id] = example;
+
+                // Add a link for the example to the left hand side menu
+                var li = document.createElement("li");
+                examplesEnd.parentNode.insertBefore(li, examplesEnd);
+                
+                var a = document.createElement("a");
+                a.href = "?" + example.id;
+                li.appendChild(a);
+
+                var icon = document.createElement("span");
+                icon.classList.add("icon");
+                a.appendChild(icon);
+
+                var mif = document.createElement("span");
+                mif.classList.add("mif-example-16");
+                mif.classList.add("mif-location-city");
+                icon.appendChild(mif);
+
+                var caption = document.createElement("caption");
+                caption.innerHTML = example.title;
+                caption.classList.add("caption");
+                a.appendChild(caption);
+            }
+        }
+
+    }
+
+        function setEditorValue(editor, value) {
+        editor.setValue((value+""), 1);
+        }
+
+        function fit() {
+        document.getElementById("splitter").style.minHeight = window.innerHeight + "px";
+
+        var editorParentStyle = "flex-basis: calc(100% - 4px);";
+        var modelEditorParentStyle = editorParentStyle + ";padding:0px";
+
+        document.getElementById("consoleEditor").parentNode.style = editorParentStyle;
+       
+        document.getElementById("SCEditor").parentNode.parentNode.style = modelEditorParentStyle;
+        document.getElementById("kpiEditor").parentNode.parentNode.style = modelEditorParentStyle;
+        
+       
+        
+        editors.forEach(e => e.resize());
+    }
+
+        var customButtons = [
+            {
+                html: "<span class='mif-rocket'></span>",
+                cls: "sys-button",
+                onclick: "run();"
+            }
+        ];
+
+        
+        var content = "";
+        var url = window.location + "";
+        var questionMark = url.indexOf("?");
+
+    if (questionMark > -1) {
+        content = url.substring(questionMark+1, url.length);
+        if (examples[content] == null) {
+            var xhr = new XMLHttpRequest();
+            var url = backendConfig["ShortURLFunction"];
+            
+            xhr.open("POST", url, false);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            var data = JSON.stringify({"shortened": content});
+            xhr.send(data);
+            if (xhr.status === 200) {
+                content = atob(JSON.parse(xhr.responseText).content);
+                json = JSON.parse(content);
+                
+                setup();
+            }
+        }
+        else {
+            json = fetchExample(content);
+           
+            setup();
+        }
+    }
+    else {
+        json = fetchExample(Object.keys(examples)[0]);  
+       
+        setup();
+    }
+    </script>
+    <script>
+
+function run() {
+
+// Set up a new asynchronous HTTP request
+// to invoke the backend service
+var xhr = new XMLHttpRequest();
+var url = "http://localhost:8001/services/RunEvaluation";
+
+xhr.open("POST", url, true);
+xhr.setRequestHeader("Content-Type", "application/json");
+
+// Prepare the json data to send to the backend service
+var data = JSON.stringify({
+		
+			
+			
+			"kpiFlexmi": kpiEditor.getValue(),
+            
+			"scFlexmi": SCEditor.getValue()
+            
+			
+		});
+
+
+// Set up the function that will be executed
+// once the service has responded
+xhr.onload = function () {
+
+    // Parse the json string returned into a json object
+    var json = JSON.parse(xhr.responseText);
+
+    // If there is an error, show it in the console
+    if (json.hasOwnProperty("error")) {
+        setConsoleOutput(json.error);
+        }
+    // else if the program executed successfully
+    // show its output in the console
+    else {
+      
+        
+        setConsoleOutput(json.output);
+        document.getElementById("evalresult").innerHTML = json.evalresult;
+        
+    }
+}
+
+// Invoke the service
+xhr.send(data);
+}
+
+
+
+function setConsoleOutput(str) {
+
+        document.getElementById("consoleEditor").style.color = "black";
+        consoleEditor.getSession().setUseWrapMode(false);
+        
+        consoleEditor.setValue(str, 1);
+    }
+
+
+function fetchBackendConfiguration() {
+var xhr = new XMLHttpRequest();
+var url = "backend.json";
+xhr.open("GET", url, false);
+xhr.send(data);
+if (xhr.status === 200) {    
+    var json = JSON.parse(xhr.responseText);
+    for (const service of json.services){
+        backendConfig[service.name] = service.url;
+    }
+}
+}
+
+// identify an element to observe
+
+elementToObserve = window.document.getElementById('evalresult');
+
+// create a new instance of 'MutationObserver' named 'observer', 
+// passing it a callback function
+observer = new MutationObserver(function(mutationsList, observer) {
+ //var gauges =  document.getElementsByClassName("gauges");
+ console.log("Here js functions can be triggered after generated code injection");
+ // if(gauges!=null)  init_gauge(gauges);
+});
+
+// call 'observe' on that MutationObserver instance, 
+// passing it the element to observe, and the options object
+observer.observe(elementToObserve, {characterData: false, childList: true, attributes: false});
+
+
+function about(event) {
+        event.preventDefault();
+        $('#about-info-box').data('infobox').open();
+    }
+    
+    </script>
+</body>
+</html>

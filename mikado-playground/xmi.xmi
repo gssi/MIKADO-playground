@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ASCII"?>
+<kpi:KpiModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:kpi="http://cs.gssi.it/kpi" subject="L'Aquila" evaldate="2022-04-29T16:33:51.603+0200">
+  <dimensions name="dim">
+    <categories name="cat">
+      <kpis name="mykpi" description="mykpi desc">
+        <value>
+          <valuetype xsi:type="kpi:AggregatedRealValue" actualizedvalue="NaN" targetvalue="10.0">
+            <values xsi:type="kpi:AggregatedRealValue" targetvalue="12.0">
+              <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.0"/>
+              <values xsi:type="kpi:StaticRealValue" actualizedvalue="2.0"/>
+            </values>
+            <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.1"/>
+          </valuetype>
+        </value>
+      </kpis>
+      <kpis name="mysecondkpi" description="mykpi desc">
+        <value>
+          <valuetype xsi:type="kpi:AggregatedRangedValue" actualizedvalue="MIN">
+            <values xsi:type="kpi:StaticRealValue" actualizedvalue="3.0"/>
+            <ranges name="MIN" max="5.0"/>
+            <ranges name="MEDIUM" min="5.1" max="10.0"/>
+            <ranges name="MAX" min="10.0" max="9999.0"/>
+          </valuetype>
+        </value>
+      </kpis>
+      <parameters name="par1"/>
+      <parameters name="par2"/>
+    </categories>
+  </dimensions>
+</kpi:KpiModel>

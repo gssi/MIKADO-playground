@@ -1,0 +1,26 @@
+SmartCity: {
+city: Bolzano,
+stakeholders: {
+name: Comune,
+organisation: Comune
+},
+data: {
+name: statistics, 
+data: {
+RealValue: {name: citypop, units: inhabitants, value: 50000},
+RealValue: {name: BLP, units: km, value: 36.0},
+RealValue: {name: TGA, units: hectars, value: 28.0},
+BoolValue: {name: TM, units: availability, value: false}
+}
+},
+data: {
+name: air quality,
+data: {
+    RealValue: {name: PM2.5, units: ng/m3, value: 5.19},
+    RealValue: {name: PM10, units: ng/m3, value: 1.0},
+    RealValue: {name: NO2, units: ng/m3, value: 1.0},
+    RealValue: {name: O3, units: ng/m3, value: 2.0},
+    RealValue: {name: SO2, units: ng/m3,  value: 0.20}
+}
+}
+}

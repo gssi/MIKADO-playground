@@ -1,0 +1,43 @@
+.md-logo {
+	margin-bottom:0px !important;
+}
+
+.md-header-nav__title {
+	padding-left: 0px;
+	margin-left:0px;
+}
+
+[data-md-color-primary=black] .md-header {
+	background-color: #494949;
+}
+
+.md-header-nav {
+	background-color: #494949;
+}
+
+.epsilon-eclipse-links {
+    display: table;
+}
+
+.epsilon-eclipse-links ul {
+    display: table-row;
+}
+
+.epsilon-eclipse-links li {
+    display: table-cell;
+    padding: 1em;
+}
+
+.slick-dots li {
+	padding: 0px;
+}
+
+.slick-dots li button:before {
+    font-size: 20px;
+    line-height: 20px;
+    margin-top: 17px;
+}
+
+.md-typeset pre {
+    margin: 0px;
+}

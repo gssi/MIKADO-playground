@@ -1,0 +1,10 @@
+KpiModel: {
+    Dimension: {
+    name: Dimname,
+        Category: {
+        name: Catname,
+            parameters:{}, 
+        kpis: {}
+        }
+    }
+}

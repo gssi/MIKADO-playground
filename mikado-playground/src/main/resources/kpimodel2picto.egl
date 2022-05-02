@@ -1,0 +1,78 @@
+[% import "util/util.eol";%]
+
+<div class="container-fluid">
+Smart city Dashboard <b>[%=KpiModel.all.first.subject%]</b> - Evaluation date:[%=KpiModel.all.first.evaldate%]
+                   
+
+  [%var i=0; 
+   for (cat in kpi_model::Category) {  %]
+   <div class="row">
+    <div class="cell-12">
+   <div data-role="panel"  data-title-caption="[%=cat.name%]" data-cls-content="bg-gray" data-cls-title="bg-gray">
+   <div class="row">
+   [%for(kpi in cat.kpis){%]
+   <div class="cell-4">
+            <div data-role="panel"  data-title-caption="[%=kpi.name%]" style="min-height:300px">
+            <center>
+                      [%=kpi.description%]
+                      <br/><br/>
+                     
+          
+                      [%switch(kpi.value.getValue().type){%]
+                      [%case Real:%]
+                      [%if(kpi.value.getTargetValue()>0){ %]
+                      <div id="donut-[%=kpi.name%]" data-role="donut" data-value="[%=kpi.value.getValue().getRounded()*100/kpi.value.getTargetValue()%]" 
+   							data-hole="0" data-stroke="#f5f5f5"
+    					></div>
+    					
+                      [%}%]
+                     
+                     <button class="button m-1">
+						    <span class="ml-1">[%=kpi.value.getValue().getRounded()%] </span>
+						    [%if(kpi.unit.isDefined()){%]<span class="badge inline bg-red fg-white">[%=kpi.unit%]</span>[%}%]
+					 </button>
+                      [%case Integer:%]
+                      [%if(kpi.value.getTargetValue()>0){ %]
+                      <div id="donut-[%=kpi.name%]" data-role="donut" data-value="[%=kpi.value.getValue().getRounded()*100/kpi.value.getTargetValue()%]" 
+   							data-hole="0" data-stroke="#f5f5f5"></div>
+    					
+                      [%}%]
+                     
+                     <button class="button m-1">
+						    <span class="ml-1">[%=kpi.value.getValue().getRounded()%] </span>
+						    [%if(kpi.unit.isDefined()){%]<span class="badge inline bg-red fg-white">[%=kpi.unit%]</span>[%}%]
+					 </button>
+					 
+                      [%case Boolean:%]
+                      <button class="button [%=(kpi.value.getValue()==true)?'dark':''%]"><span class"ml-1">Yes</span>[%if((kpi.value.getTargetValue().isDefined())){%]<span class="badge">[%=(kpi.value.getTargetValue()==true)?"target":""%]</span>[%}%]</button>
+                      <button class="button [%=(kpi.value.getValue()==false)?'dark':''%]"><span class"ml-1">No</span>[%if((kpi.value.getTargetValue().isDefined())){%]<span class="badge">[%=(kpi.value.getTargetValue()==false)?"target":""%]</span>[%}%]</button>
+                      
+                      [%case String:%]
+                      [%if(kpi.value.valuetype.isKindOf(AggregatedRangedValue)){%]
+                      [%for (range in kpi.value.valuetype.ranges.name) { %]
+                      
+                      <button class="button [%=(kpi.value.getValue()==range)?'dark':''%]"><span class="ml-1">[%=range%]</span>[%if(kpi.value.getTargetValue().isDefined()){%]<span class="badge">[%=(kpi.value.getTargetValue()==range)?"target":""%]</span>[%}%]</button>
+                      
+                      [%}%]
+                      [%}else{%]
+                      [%=kpi.value.getValue()%]
+                      [%}%]
+                      [%default:%]
+                    	 Provide rendering for: [%=kpi.value.getValue().type%]
+                      [%}%]
+                      
+                    
+                      </center>
+         	</div>		
+    </div>			
+  [%}%]
+  </div> 
+  </div>
+  </div>
+   </div> 
+  [%}%]                    
+            
+           </div>    			
+                 
+
+  

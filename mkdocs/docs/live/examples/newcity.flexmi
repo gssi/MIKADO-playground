@@ -1,0 +1,13 @@
+SmartCity: {
+city: Gotham city,
+stakeholders: {
+name: Comune,
+organisation: Comune
+},
+data: {
+name: statistics, 
+data: {
+RealValue: {name: par1, units: units, value: 1}
+}
+}
+}

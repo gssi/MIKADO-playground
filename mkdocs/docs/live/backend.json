@@ -1,0 +1,6 @@
+{
+  "services": [
+    {"name": "RunEvaluation","url": "services/RunEvaluation", "port": "8001"},
+    {"name": "Flexmi2HTML", "url": "services/Flexmi2HTML","port": "8002"}
+  ]
+}

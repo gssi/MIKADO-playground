@@ -1,0 +1,29 @@
+{
+  "examples": [
+	{
+		"id": "aq",
+		"title": "L'Aquila SmartCity Evaluation",
+		"language": "egl",
+		"kpiflexmi": "mykpi.flexmi",
+		"scflexmi": "aq.flexmi",
+		"outputType": "html"
+	},
+	{
+		"id": "bz",
+		"title": "Bolzano SmartCity Evaluation",
+		"language": "egl",
+		"kpiflexmi": "mykpi.flexmi",
+		"scflexmi": "bz.flexmi",
+		"outputType": "html"
+	},
+	{
+		"id": "new",
+		"title": "New -- SmartCity Evaluation",
+		"language": "egl",
+		"kpiflexmi": "newkpi.flexmi",
+		"scflexmi": "newcity.flexmi",
+		"outputType": "html"
+	}
+
+
+]}

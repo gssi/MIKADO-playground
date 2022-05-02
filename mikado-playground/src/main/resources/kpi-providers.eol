@@ -1,0 +1,80 @@
+operation Real getRounded():Real{
+var decimal = new Native("java.text.DecimalFormat");
+decimal.applyPattern("###.###");
+return decimal.format(self).asReal();
+//return self.asReal();
+}
+
+operation Source!StaticRealValue get(city: sc!SmartCity): Any{
+	return self.actualizedvalue;
+}
+
+operation Source!StaticBoolValue get(city: sc!SmartCity): Any{
+	return self.actualizedvalue;
+}
+
+operation Source!StaticIntegerValue get(city: sc!SmartCity): Any{
+	return self.actualizedvalue;
+}
+
+operation Source!RealValue get(city: sc!smartcity::SmartCity): Real{
+var data = sc!Data.all;
+
+if(data.exists(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name)){ 
+return data.selectOne(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name).value;
+}
+}
+
+operation Source!BoolValue get(city: sc!SmartCity): Boolean{
+var data = sc!Data.all;
+if(data.exists(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name)){ 
+return data.selectOne(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name).value;
+}
+}
+
+operation Source!IntegerValue get(city: sc!SmartCity): Integer{
+var data = sc!Data.all;
+if(data.exists(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name)){ 
+return data.selectOne(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name).value;
+}
+}
+
+operation Source!StringValue get(city: sc!SmartCity): String{
+var data = sc!Data.all;
+if(data.exists(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name)){ 
+return data.selectOne(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name).value;
+}
+}
+
+operation Source!AggregatedRealValue get(city: sc!SmartCity): Any{
+//self.values.equivalent().collect(e|e.actualizedvalue).println();
+return self.values.equivalent().collect(e|e.actualizedvalue).getop(self.oper);
+	
+}
+
+operation Source!AggregatedRangedValue get(city: sc!SmartCity): Any{
+var value = self.values.equivalent().collect(e|e.actualizedvalue).getop(self.oper).first;
+return self.ranges.selectOne(r|r.min <= value and r.max >= value).name;	
+	
+}
+
+
+
+operation Any getop(op: Any): Any{
+
+switch (op) {
+case Source!Operation#GET: return self;
+case Source!Operation#SUM: return self.sum();
+case Source!Operation#AVG: return self.sum()/self.size();
+case Source!Operation#MIN: return self.min();
+case Source!Operation#MAX: return self.max();
+case Source!Operation#DIV: return self.get(0).ifUndefined(0)/self.get(1).ifUndefined(0);
+case Source!Operation#MULT: return self.get(0)*self.get(1);
+case Source!Operation#CEN: if(self.get(0) >= 100000) return self.get(0) / 100000; else return self.get(0) / self.get(0);
+default : "No operation provided ".println(); }
+
+}
+
+
+
+

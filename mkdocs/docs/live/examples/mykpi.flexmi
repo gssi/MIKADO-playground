@@ -1,0 +1,130 @@
+KpiModel: {
+Dimension: {
+name: Environment,
+Category: {
+name: Public Spaces,
+parameters: {
+Parameter: {name: citypop},
+Parameter: {name: TGA}, 
+Parameter: {name: BLP}, 
+Parameter: {name: TM}
+}, 
+kpis: {
+Kpi: { 
+name: GA,
+description: Green Areas,
+unit: green spaces,
+value: {valuetype: {
+AggregatedRealValue: { oper: DIV, targetvalue: 100, values: {
+RealValue: {parameter: TGA},    
+AggregatedRealValue: { oper: MULT, values: {
+RealValue: {parameter: citypop},    
+AggregatedRealValue: {oper: DIV, values: 
+{
+StaticRealValue: {actualizedvalue: 1}, 
+StaticRealValue: {actualizedvalue: 100000}}}}}
+}}}}
+},
+Kpi: {
+    name: BN,
+    description: Bike path length,
+    unit: KM,
+   value: {valuetype: {
+AggregatedRealValue: { oper: DIV, targetvalue: 230, values: {
+RealValue: {parameter: BLP},    
+AggregatedRealValue: { oper: MULT, values: {
+RealValue: {parameter: citypop},    
+AggregatedRealValue: {oper: DIV, values: 
+{
+StaticRealValue: {actualizedvalue: 1}, 
+StaticRealValue: {actualizedvalue: 100000}}}}}
+}}}}
+},
+Kpi: {
+    name: TMS,
+    description: availability of transport monitoring service,
+    value: {valuetype: {BoolValue: {parameter: TM}}}
+}
+}
+},
+Category: {
+    name: Air Quality,
+    parameters: {
+    Parameter: {name: PM2.5}, 
+    Parameter: {name: PM10}, 
+    Parameter: {name: NO2}, 
+    Parameter: {name: O3},
+    Parameter: {name: SO2}
+    },
+    kpis: {
+        Kpi: {
+            name: AQI,
+            description: Air quality Index,
+            value: {valuetype: {
+                AggregatedRangedValue: {oper: GET, 
+                ranges: {Range: {name: Excellent, min: 0.0, max: 30.0}, 
+                Range: {name: Good, min: 30.1, max: 66.0}, 
+                Range: {name: Bad, min: 66.1, max: 150.0},
+                Range: {name: Terrible, min: 150.1, max: 999.0}
+                },
+            values: {
+                AggregatedRealValue: {oper: MAX,
+                values: {
+                    AggregatedRealValue: {oper: MULT, values: {
+                    StaticRealValue: {actualizedvalue: 100.0}, 
+                    AggregatedRealValue: {oper: DIV, values: {
+                        RealValue: {parameter: PM2.5},
+                        StaticRealValue: {actualizedvalue: 25.0}
+                    }}}},
+                    AggregatedRealValue: {oper: MULT, values: {
+                    StaticRealValue: {actualizedvalue: 100.0}, 
+                    AggregatedRealValue: {oper: DIV, values: {
+                        RealValue: {parameter: PM10},
+                        StaticRealValue: {actualizedvalue: 50.0}
+                    }}}},
+                    AggregatedRealValue: {oper: MULT, values: {
+                    StaticRealValue: {actualizedvalue: 100.0}, 
+                    AggregatedRealValue: {oper: DIV, values: {
+                        RealValue: {parameter: NO2},
+                        StaticRealValue: {actualizedvalue: 200.0}
+                    }}}},
+                    AggregatedRealValue: {oper: MULT, values: {
+                    StaticRealValue: {actualizedvalue: 100.0}, 
+                    AggregatedRealValue: {oper: DIV, values: {
+                        RealValue: {parameter: O3},
+                        StaticRealValue: {actualizedvalue: 180.0}
+                    }}}},
+                    AggregatedRealValue: {oper: MULT, values: {
+                    StaticRealValue: {actualizedvalue: 100.0}, 
+                    AggregatedRealValue: {oper: DIV, values: {
+                        RealValue: {parameter: SO2},
+                        StaticRealValue: {actualizedvalue: 350.0}
+                    }}}}
+                    
+                }
+            }}        
+                }
+            }}
+        },
+        Kpi: {
+            name: NO2 emissions,
+            unit: ng/m3,
+            value: {valuetype: { AggregatedRealValue: {
+                oper: DIV,
+                targetvalue: 1,
+                values: { RealValue: {parameter: NO2}, RealValue: {parameter: citypop}}
+            }}}
+        },
+         Kpi: {
+            name: PM2.5 emissions,
+            unit: ng/m3,
+            value: {valuetype: { AggregatedRealValue: {
+                oper: DIV,
+                targetvalue: 1,
+                values: { RealValue: {parameter: PM2.5}, RealValue: {parameter: citypop}}
+            }}}
+        },
+    }
+}
+}
+}

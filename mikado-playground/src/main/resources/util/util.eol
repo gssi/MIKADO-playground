@@ -1,0 +1,61 @@
+operation Real getRounded():Real{
+var decimal = new Native("java.text.DecimalFormat");
+decimal.applyPattern("#.#####");
+return decimal.format(self).asReal();
+//return self.asReal();
+}
+
+operation kpi_model::Value getValue(){
+
+	return self.valuetype.getActualizedValue();
+}
+
+
+operation kpi_model::Value getTargetValue(){
+	return self.valuetype.getTargetValue();
+
+}
+
+operation kpi_model::AggregatedValue getActualizedValue(){
+if(self.actualizedvalue<1) return self.actualizedvalue+0.1;
+	return self.actualizedvalue;
+}
+
+operation kpi_model::CalculatedValue getActualizedValue(){
+	return self.actualizedvalue;
+}
+
+operation kpi_model::AggregatedRangedValue getTargetValue(){
+	return self.targetvalue;
+}
+
+operation kpi_model::AggregatedIntegerValue getTargetValue(){
+	return self.targetvalue;
+}
+
+operation kpi_model::AggregatedRealValue getTargetValue(){
+	return self.targetvalue;
+}
+operation kpi_model::SingleNonStaticValue getTargetValue(){
+	return self.targetvalue;
+}
+
+operation kpi_model::Category getSubject(): String{
+	return self.eContainer.getKPIModel().subject;
+}
+operation kpi_model::Dimension getSubject(): Any{
+	return self.getKPIModel().subject;
+}
+
+operation kpi_model::Dimension getKPIModel() {
+
+	if(self.eContainer.isTypeOf(kpi_model::KpiModel)){
+	
+		return self.eContainer;
+	
+	}else if(self.eContainer.isTypeOf(kpi_model::Dimension)){
+	
+		return self.eContainer.getKPIModel();
+	
+	}
+}
