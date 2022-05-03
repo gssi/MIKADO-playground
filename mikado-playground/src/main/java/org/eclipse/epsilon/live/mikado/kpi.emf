@@ -14,7 +14,7 @@ class Dimension {
 }
 
 class Category {
-   val Kpi[*] kpis;
+   val Kpi[*]#category kpis;
    val Parameter[*] parameters;
    attr String name;
 
@@ -23,9 +23,9 @@ class Category {
 class Kpi {
   attr String name;
   attr String description;
- ref Category[1]#kpis category;
+  ref Category[1]#kpis category;
   val Value[1]#kpi value;
-    attr String unit;
+  attr String unit;
 }
 
 class Value {
@@ -40,7 +40,8 @@ class Parameter {
 }
 
 abstract class ValueType {
-ref Value[?]#valuetype value;
+	
+	ref Value[?]#valuetype value;
 
 }
 
@@ -66,7 +67,7 @@ class StaticBoolValue extends CalculatedValue {
 
 class StaticIntegerValue extends CalculatedValue {
   attr int actualizedvalue;
-  
+  attr int targetvalue;
 }
 
 class BoolValue extends SingleNonStaticValue {

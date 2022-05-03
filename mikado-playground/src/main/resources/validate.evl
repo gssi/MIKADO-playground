@@ -1,0 +1,82 @@
+pre {
+var instant = Native("java.time.Instant");
+var duration = Native("java.time.Duration");
+
+var start = instant.now();
+
+var smartcity = sc!SmartCity.all.first;
+var datascmodel = sc!Data.all;
+ 
+}
+
+
+context CalculatedValue{
+constraint definedParameter{
+guard: self.isKindOf(StaticIntegerValue) or self.isKindOf(StaticRealValue) 
+	check: self.actualizedvalue > 0
+	message: "No actualizedvalue defined"
+}
+}
+
+context SingleNonStaticValue {
+
+constraint definedParameter{
+	guard: self.parameter.isUndefined()
+    check :  self.parameter.isDefined()
+    message: "No defined parameter "
+    }
+  constraint ValidParameter {
+    guard: self.parameter.isDefined()
+    check :  datascmodel.name.includes(self.parameter.name)
+    message: "No defined parameter for "+self.parameter.name+" in smart city: "+smartcity.city
+  }
+}
+
+context Kpi{
+
+constraint KpiWithName{
+	check : self.name.isDefined() 
+    message: "No name for the #" + (self.category.kpis.indexOf(self)+1)+" kpi"
+}
+	constraint ValidKpi {
+    
+    check : self.value.isDefined() 
+    message: "No defined value for " + self.name.ifUndefined("kpi #"+self.category.kpis.indexOf(self)+1+ " kpi")
+  }
+
+}
+
+context Value{
+	constraint EmptyValue{
+	check : self.valuetype.isDefined() 
+    message: "No valuetype defined for " + (self.kpi.name.ifUndefined(" #"+self.kpi.category.kpis.indexOf(self.kpi)+1+ " kpi"))
+}
+
+}
+context AggregatedValue{
+	constraint oper1par{
+	guard: self.oper=Operation#GET 
+	check: self.values.size()==1
+	message: "operation must have 1 arguments"
+	}
+	constraint operations2par{
+	guard: self.oper=Operation#DIV
+	check: self.values.size()==2
+	message: "operation must have 2 arguments"
+	}
+	constraint opernpar{
+	guard: self.oper=Operation#MULT or self.oper=Operation#SUM or self.oper=Operation#AVG or self.oper=Operation#MIN or self.oper=Operation#MAX 
+	check: self.values.size()>1
+	message: "operation must have >1 arguments"
+	}
+	constraint valuesDefined{
+	check: self.values.size()>0
+	message: "values undefined"
+	}
+}
+
+post{
+var end = instant.now();
+var elapsedTime : Real = duration.between(start,end).toMillis();
+("Validation took "+elapsedTime+" ms").println();
+}

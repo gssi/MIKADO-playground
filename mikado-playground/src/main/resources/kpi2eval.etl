@@ -86,6 +86,7 @@ rule StaticIntegerValue
 transform single: Source!StaticIntegerValue
 to eval: Target!StaticIntegerValue{
 	eval.actualizedvalue = single.get(smartcity);
+	eval.targetvalue = single.targetvalue;
 	
 }
 

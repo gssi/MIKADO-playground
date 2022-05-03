@@ -20,6 +20,7 @@ Smart city Dashboard <b>[%=KpiModel.all.first.subject%]</b> - Evaluation date:[%
           
                       [%switch(kpi.value.getValue().type){%]
                       [%case Real:%]
+                      
                       [%if(kpi.value.getTargetValue()>0){ %]
                       <div id="donut-[%=kpi.name%]" data-role="donut" data-value="[%=kpi.value.getValue().getRounded()*100/kpi.value.getTargetValue()%]" 
    							data-hole="0" data-stroke="#f5f5f5"
@@ -32,14 +33,15 @@ Smart city Dashboard <b>[%=KpiModel.all.first.subject%]</b> - Evaluation date:[%
 						    [%if(kpi.unit.isDefined()){%]<span class="badge inline bg-red fg-white">[%=kpi.unit%]</span>[%}%]
 					 </button>
                       [%case Integer:%]
+                      
                       [%if(kpi.value.getTargetValue()>0){ %]
-                      <div id="donut-[%=kpi.name%]" data-role="donut" data-value="[%=kpi.value.getValue().getRounded()*100/kpi.value.getTargetValue()%]" 
+                      <div id="donut-[%=kpi.name%]" data-role="donut" data-value="[%=kpi.value.getValue()*100/kpi.value.getTargetValue()%]" 
    							data-hole="0" data-stroke="#f5f5f5"></div>
     					
                       [%}%]
                      
                      <button class="button m-1">
-						    <span class="ml-1">[%=kpi.value.getValue().getRounded()%] </span>
+						    <span class="ml-1">[%=kpi.value.getValue()%] </span>
 						    [%if(kpi.unit.isDefined()){%]<span class="badge inline bg-red fg-white">[%=kpi.unit%]</span>[%}%]
 					 </button>
 					 

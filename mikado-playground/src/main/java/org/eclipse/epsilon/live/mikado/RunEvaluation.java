@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
 
 import org.eclipse.epsilon.egl.IEglModule;
 import org.eclipse.epsilon.emc.emf.InMemoryEmfModel;
@@ -20,6 +21,7 @@ import org.eclipse.epsilon.eol.IEolModule;
 import org.eclipse.epsilon.epl.EplModule;
 import org.eclipse.epsilon.etl.EtlModule;
 import org.eclipse.epsilon.evl.EvlModule;
+import org.eclipse.epsilon.evl.execute.UnsatisfiedConstraint;
 
 import com.google.common.io.Resources;
 import com.google.gson.JsonObject;
@@ -31,10 +33,25 @@ public class RunEvaluation extends EpsilonLiveFunction{
 		// TODO Auto-generated method stub
 		
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		run(    request.get("kpiFlexmi").getAsString(), 
-				request.get("scFlexmi").getAsString(),
-				bos, response);
-		response.addProperty("output", bos.toString());
+		
+		Validator validator = new Validator();
+		
+		Collection<UnsatisfiedConstraint> validationresults = validator.run(request.get("kpiFlexmi").getAsString(), 
+				request.get("scFlexmi").getAsString(), bos, response);
+		
+		if(validationresults.size()>0) {
+		
+		response.addProperty("error", ("Validation errors: " + validationresults).toString());
+		
+		
+		
+		}else {
+			run(    request.get("kpiFlexmi").getAsString(), 
+			request.get("scFlexmi").getAsString(),
+			bos, response);
+			response.addProperty("output", bos.toString());
+		}
+		
 		
 	}
 	

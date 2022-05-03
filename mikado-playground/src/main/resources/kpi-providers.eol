@@ -53,8 +53,12 @@ return self.values.equivalent().collect(e|e.actualizedvalue).getop(self.oper);
 }
 
 operation Source!AggregatedRangedValue get(city: sc!SmartCity): Any{
-var value = self.values.equivalent().collect(e|e.actualizedvalue).getop(self.oper).first;
-return self.ranges.selectOne(r|r.min <= value and r.max >= value).name;	
+var value = self.values.equivalent().collect(e|e.actualizedvalue).getop(self.oper);
+if(self.ranges.selectOne(r|r.min <= value and r.max >= value).isDefined()) {
+	return self.ranges.selectOne(r|r.min <= value and r.max >= value).name;
+}else{
+	return "undefined range";
+}
 	
 }
 
@@ -63,7 +67,7 @@ return self.ranges.selectOne(r|r.min <= value and r.max >= value).name;
 operation Any getop(op: Any): Any{
 
 switch (op) {
-case Source!Operation#GET: return self;
+case Source!Operation#GET: return self.first;
 case Source!Operation#SUM: return self.sum();
 case Source!Operation#AVG: return self.sum()/self.size();
 case Source!Operation#MIN: return self.min();

@@ -305,6 +305,7 @@ xhr.onload = function () {
     // If there is an error, show it in the console
     if (json.hasOwnProperty("error")) {
         setConsoleOutput(json.error);
+        document.getElementById("evalresult").innerHTML = "";
         }
     // else if the program executed successfully
     // show its output in the console
