@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.Date;
 
 import org.eclipse.epsilon.egl.IEglModule;
 import org.eclipse.epsilon.emc.emf.InMemoryEmfModel;
@@ -22,6 +23,7 @@ import org.eclipse.epsilon.epl.EplModule;
 import org.eclipse.epsilon.etl.EtlModule;
 import org.eclipse.epsilon.evl.EvlModule;
 import org.eclipse.epsilon.evl.execute.UnsatisfiedConstraint;
+import org.eclipse.epsilon.flexmi.actions.InMemoryFlexmiModel;
 
 import com.google.common.io.Resources;
 import com.google.gson.JsonObject;
@@ -34,7 +36,7 @@ public class RunEvaluation extends EpsilonLiveFunction{
 		
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		
-		Validator validator = new Validator();
+		/*Validator validator = new Validator();
 		
 		Collection<UnsatisfiedConstraint> validationresults = validator.run(request.get("kpiFlexmi").getAsString(), 
 				request.get("scFlexmi").getAsString(), bos, response);
@@ -44,13 +46,13 @@ public class RunEvaluation extends EpsilonLiveFunction{
 		response.addProperty("error", ("Validation errors: " + validationresults).toString());
 		
 		
-		
-		}else {
-			run(    request.get("kpiFlexmi").getAsString(), 
+		*/
+		//}else {
+			run( request.get("kpiFlexmi").getAsString(), 
 			request.get("scFlexmi").getAsString(),
 			bos, response);
 			response.addProperty("output", bos.toString());
-		}
+		//}
 		
 		
 	}
@@ -91,6 +93,7 @@ public void run( String kpiFlexmi,  String scFlexmi, OutputStream outputStream, 
 		InMemoryEmfModel scModel = getInMemoryFlexmiModel(scFlexmi, scEmfatic);
 		scModel.setName("sc");
 		
+		
 		InMemoryEmfModel targetModel = getBlankInMemoryModel(kpiEmfatic);
 		targetModel.setName("Target");
 		
@@ -99,7 +102,10 @@ public void run( String kpiFlexmi,  String scFlexmi, OutputStream outputStream, 
 		module.getContext().getModelRepository().addModel(targetModel);
 		
 		module.execute();
-	
+		
+		//to save the evaluated model on the server
+		//targetModel.store();
+		
 		response.addProperty("evalresult", new Flexmi2HTML().run(targetModel));
 		
 	}
@@ -111,9 +117,6 @@ public static void main(String[] args) throws Exception {
 			String kpiFlexmi = Files.readString(Paths.get(RunEvaluation.class.getResource("mykpi.flexmi").toURI()));
 			String scFlexmi = Files.readString(Paths.get(RunEvaluation.class.getResource("aq.flexmi").toURI()));
 
-		
-
-		
 		
 		new RunEvaluation().run(kpiFlexmi, scFlexmi,
 				

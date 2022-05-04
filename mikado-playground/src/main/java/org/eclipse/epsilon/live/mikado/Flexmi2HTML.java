@@ -20,10 +20,12 @@ public class Flexmi2HTML extends EpsilonLiveFunction {
 	@Override
 	public void serviceImpl(JsonObject request, JsonObject response) throws Exception {
 		String html = run(request.get("flexmi").getAsString(), request.get("emfatic").getAsString());
-		response.addProperty("modelDiagram", html);
+		response.addProperty("evalresult", html);
 	}
 	
+	
 	protected String run(String flexmi, String emfatic) throws Exception {
+		
 		return run(getInMemoryFlexmiModel(flexmi, emfatic));
 	}
 	
@@ -31,6 +33,7 @@ public class Flexmi2HTML extends EpsilonLiveFunction {
 		EglTemplateFactoryModuleAdapter module = new EglTemplateFactoryModuleAdapter();
 		module.parse(new File("src/main/resources/kpimodel2picto.egl"));
 		model.setName("M");
+		
 		module.getContext().getModelRepository().addModel(model);
 		module.getContext().getFrameStack().put(variables);
 		return module.execute() + "";

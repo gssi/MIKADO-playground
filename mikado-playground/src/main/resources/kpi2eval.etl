@@ -9,6 +9,7 @@ var start = instant.now();
 
 var smartcity=sc!SmartCity.all.first;
 ("Evaluating "+smartcity.city+"...").println();
+("Required: "+Kpi.all.size()+" kpis").println();
 }
 
 

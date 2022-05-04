@@ -60,7 +60,7 @@
                 </div>
                 <div data-role="splitter"  class="h-100" data-split-mode="vertical" style="min-height: 200px;" >
                     <div class="d-flex flex-justify-left flex-align-left" data-role="panel" data-title-caption="Console" data-custom-buttons="customButtons" style="min-height: 100px;">
-                        <div id="consoleEditor" class="editor" style="height: 100px; width: 100%">Click the button to trigger the evaluation...</div>
+                        <div id="consoleEditor" class="editor" style="height: 150px; width: 100%">Click the button to trigger the evaluation...</div>
                    </div>
                 </div>
                 <div data-role="splitter"  class="h-100" data-split-mode="vertical" style="min-height: 1000px;" >
@@ -272,12 +272,11 @@
     </script>
     <script>
 
-function run() {
 
-// Set up a new asynchronous HTTP request
-// to invoke the backend service
-var xhr = new XMLHttpRequest();
+function runEval(){
+    var xhr = new XMLHttpRequest();
 var url = "http://localhost:8001/services/RunEvaluation";
+
 
 xhr.open("POST", url, true);
 xhr.setRequestHeader("Content-Type", "application/json");
@@ -290,8 +289,57 @@ var data = JSON.stringify({
 			"kpiFlexmi": kpiEditor.getValue(),
             
 			"scFlexmi": SCEditor.getValue()
-            
+           
+		});
+
+
+// Set up the function that will be executed
+// once the service has responded
+xhr.onload = function () {
+
+    // Parse the json string returned into a json object
+    var json = JSON.parse(xhr.responseText);
+
+    // If there is an error, show it in the console
+    if (json.hasOwnProperty("error")) {
+        setConsoleOutput(json.error);
+        document.getElementById("evalresult").innerHTML = "";
+        }
+    // else if the program executed successfully
+    // show its output in the console
+    else {
+      
+        
+        updateConsoleOutput(json.output);
+        
+
+        document.getElementById("evalresult").innerHTML = json.evalresult;
+        
+    }
+}
+
+// Invoke the service
+xhr.send(data);
+}
+
+function run() {
+
+// Set up a new asynchronous HTTP request
+// to invoke the backend service
+var xhr = new XMLHttpRequest();
+var url = "http://localhost:8002/services/Validator";
+
+xhr.open("POST", url, true);
+xhr.setRequestHeader("Content-Type", "application/json");
+
+// Prepare the json data to send to the backend service
+var data = JSON.stringify({
+		
 			
+			"kpiFlexmi": kpiEditor.getValue(),
+            
+			"scFlexmi": SCEditor.getValue()
+         
 		});
 
 
@@ -313,7 +361,9 @@ xhr.onload = function () {
       
         
         setConsoleOutput(json.output);
-        document.getElementById("evalresult").innerHTML = json.evalresult;
+        
+        runEval();
+        //document.getElementById("evalresult").innerHTML = json.evalresult;
         
     }
 }
@@ -322,7 +372,12 @@ xhr.onload = function () {
 xhr.send(data);
 }
 
-
+function updateConsoleOutput(str){
+        document.getElementById("consoleEditor").style.color = "black";
+        consoleEditor.getSession().setUseWrapMode(false);
+        
+        consoleEditor.setValue(consoleEditor.getValue()+"\n"+str, 1);
+}
 
 function setConsoleOutput(str) {
 
