@@ -1,0 +1,72 @@
+[%
+var data = Data.all;
+var packages = DataPackage.all;
+var sources = Source.all;
+
+%]
+
+digraph G {
+node[shape="plain",fontname="Courier", fontsize="10"]
+	edge[fontname="Arial", fontsize="10"]
+[%for (p in packages){%]
+subgraph "cluster_[%=p.name.trim()%]" {
+ label="[%=p.name.trim()%]";
+[%for (d in p.data) { %]
+	
+		"[%=d.name%]"[ label=<
+       <table cellspacing='-1' cellborder='0' cellpadding='3'>
+			<tr>
+				<td bgcolor="azure" border="1" sides="B"><font face='Arial'>[%=d.name%]</font></td>
+			</tr>
+			<tr>
+				<td align="left" cellpadding="5">
+					value: [%=d.value%] [%=d.unit%]
+					<br align='left'/>
+				</td>
+			</tr>
+		</table>
+    >]
+  		[%}%]
+		}
+		[%}%]
+
+[%for (s in sources) { %]
+	node[shape="plain",fontname="Courier", fontsize="10"]
+	edge[fontname="Arial", fontsize="10"]
+		"[%=s.name%]"[ label=<
+       <table cellspacing='-1' cellborder='0' cellpadding='3'>
+			<tr>
+				<td bgcolor="yellow" border="1" sides="B"><font face='Arial'>[%=s.name%]</font></td>
+			</tr>
+			<tr>
+				<td align="left" cellpadding="5">
+				
+					[% switch(s.type.name){ %]
+					[%case("MonitoringInfrastructure"):%]
+						
+						<br/>[%=s.devices.size()%] devices
+					[%case("OpenData"):%]
+						<br/>[%=s.url%]
+					[%case("Stakeholder"):%]
+						<br/>[%=s.organization%]
+						[%case("ExternalService"):%]
+						<br/>[%=s.url%]
+						
+					[%default:%]
+					xx[%=s.type.name%]
+					[% } %]
+					<br align='left'/>
+				</td>
+			</tr>
+		</table>
+    >]
+		
+		 
+		[%}%]
+		[%for (d in data) { %]
+			  
+		[%if(d.src.isDefined()){%]"[%=d.src.name%]"->"[%=d.name%]"	[%}%]	 
+			
+		[%}%]
+	
+}

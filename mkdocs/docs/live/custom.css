@@ -1,60 +1,4 @@
-.modelPanel {
-	height: 100%;
-}
 
-.editor { 
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 100%;
-}
-
-.diagram {
-	display:none;
-	height:100%;
-	width:100%
-}
-
-.rendering-error {
-	margin: 10px;
-	padding: 10px;
-	background-color: #CD352C;
-	color: white;
-}
-
-.mif-16::before {
-	position: relative;
-	top: 1px;
-	margin: 0px;
-}
-
-.mif-example-16::before {
-	position: relative;
-	top: 2px;
-	margin: 0px;
-}
-
-.mif-eol::before {
-	content: url("images/eol.gif");
-}
-
-.mif-egl::before {
-    content: url("images/egl.png");
-}
-
-.mif-etl::before {
-    content: url("images/etl.gif");
-}
-
-.mif-epl::before {
-    content: url("images/epl.gif");
-}
-
-.mif-evl::before {
-    content: url("images/evl.gif");
-}
 
 .mif-flexmi::before {
     content: url("images/flexmi.png");
@@ -110,36 +54,4 @@
 
 .mif-highlight::before {
 	content: url("images/highlight.png");
-}
-
-.panel .panel-title .custom-buttons {
-	margin-right: 10px;
-}
-
-.navview .navview-menu .caption {
-	position: relative;
-	left: -6px;
-}
-
-.panel .panel-title .icon {
-	border-right: 0px;
-	width: 20px;
-	margin-left:10px;
-}
-
-.panel .panel-title .caption {
-	padding-left: 6px;
-}
-
-.panel .panel-title .btn-custom {
-	width: 20px;
-}
-
-.panel .panel-title .button {
-	background-color: #fff;
-	border-bottom:1px solid #dfdfdf;
-}
-
-body {
-	font-size: 16px
 }

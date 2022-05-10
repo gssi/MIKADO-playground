@@ -5,12 +5,9 @@ package smartcity;
 class SmartCity {
   attr String city;
   attr String geolocation;
-  val Stakeholder[*] stakeholders;
+  val Source[*] sources;
   val DataPackage[*] data;
-  val PublicInfrastructureLayer infrastructurelayer;
 }
-
-
 
   abstract class Data {
     attr String name;
@@ -29,6 +26,10 @@ class SmartCity {
   class IntegerValue extends Data {
     attr int value;
   }
+  
+   
+  
+  
 
   class DataPackage {
     attr String name;
@@ -36,25 +37,41 @@ class SmartCity {
   }
 
   abstract class Source {
+   attr String name;
   }
 
   class SocialMedia extends Source {
     attr String url;
-    attr String name;
+   
   }
 
   class OpenData extends Source {
     attr String url;
-    attr String name;
+   
+  }
+  
+  class ExternalService extends Source{
+  	attr String url;
+  	val Argument[*] arguments;
+  }
+  
+  class Argument{
+  	attr String name;
+  	attr String value;
+  }
+  
+   class Stakeholder extends Source {
+   
+    attr String organization;
   }
 
   class ProvidedData extends Source {
-    ref Stakeholder[*] provider;
+    
   }
 
 
-
-  class MonitoringInfrastructure extends Source, InfrastructureComponent {
+  class MonitoringInfrastructure extends Source{
+  
     val IoTDev[*] devices;
   }
 
@@ -65,25 +82,13 @@ class SmartCity {
   }
 
   abstract class IoTDev {
+  	attr String name;
     attr String model;
     attr String location;
   }
 
-  class PublicInfrastructureLayer {
-    attr String name;
-    val InfrastructureComponent[*] components;
-  }
-
-  class InfrastructureComponent {
-    attr String name;
-  }
-
-
-
-  class Stakeholder extends Source {
-    attr String name;
-    attr String organization;
-  }
+ 
+ 
 
 
 

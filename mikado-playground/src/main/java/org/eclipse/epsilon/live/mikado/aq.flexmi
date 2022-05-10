@@ -2,28 +2,31 @@
 
 SmartCity: {
 city: L'Aquila,
-stakeholders: {
-name: Comune,
-organisation: Comune
-},
-data: {
-name: statistics, 
-data: {
-RealValue: {name: citypop, units: inhabitants, value: 70000},
-RealValue: {name: BLP, units: km, value: 86.0},
-RealValue: {name: TGA, units: hectars, value: 48.0},
-BoolValue: {name: TM, units: availability, value: true}
+sources: { 
+    Stakeholder: { name: Comune, organization: AQ},
+    Stakeholder: { name: AMA, organization: PublicTransport},
+    OpenData: { name: Open Data L'Aquila, url: opendatalaquila.it},
+    MonitoringInfrastructure: { name: SmartEnvironment, devices: { Sensor: {name: Libelium, model: A43dS} }},
+    ExternalService: {name: getPollutants, url: http://aq.od, arguments: {Argument: {name: city, value: AQ}, Argument: {name: pollutant, value: PM25}}}
 }
-},
+, 
 data: {
-name: air quality,
+name: statistics,  
+data: { 
+RealValue: {name: citypop, units: inhabitants, value: 70000, src: Comune},
+RealValue: {name: BLP, units: km, value: 86.0, src: Comune},
+RealValue: {name: TGA, units: hectars, value: 45,  src: Open Data L'Aquila},
+BoolValue: {name: TM, units: availability, value: true, src: AMA} 
+}
+}, 
 data: {
-    RealValue: {name: PM2.5, units: ng/m3, value: 11.19},
-    RealValue: {name: PM10, units: ng/m3, value: 12.0},
-    RealValue: {name: NO2, units: ng/m3, value: 18.0},
-    RealValue: {name: O3, units: ng/m3, value: 25.0},
-    RealValue: {name: SO, units: ng/m3,  value: 0.20}
+name: air quality,        
+data: {
+    RealValue: {name: PM2.5, units: ng/m3, value: 11.19, src: getPollutants},
+    RealValue: {name: PM10, units: ng/m3, value: 12.0,  src: SmartEnvironment},
+    RealValue: {name: NO2, units: ng/m3, value: 18.0,  src: SmartEnvironment},
+    RealValue: {name: O3, units: ng/m3, value: 25.0,  src: SmartEnvironment},
+    RealValue: {name: SO2, units: ng/m3,  value: 0.20,  src: SmartEnvironment}
 }
 }
 }
-

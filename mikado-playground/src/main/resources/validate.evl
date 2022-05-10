@@ -25,6 +25,12 @@ constraint definedParameter{
     check :  self.parameter.isDefined()
     message: "No defined parameter "
     }
+    constraint noValueParameter{
+	guard: self.parameter.isDefined() and datascmodel.name.includes(self.parameter.name) and datascmodel.select(d| d.isKindOf(sc!RealValue) or d.isKindOf(sc!IntegerValue)).name.includes(self.parameter.name)
+    check :   
+    datascmodel.selectOne(p| p.name==self.parameter.name).value.isDefined() and datascmodel.selectOne(p| p.name==self.parameter.name).value>0
+message: "No value for parameter "+self.parameter.name
+    }
   constraint ValidParameter {
     guard: self.parameter.isDefined()
     check :  datascmodel.name.includes(self.parameter.name)
@@ -53,6 +59,7 @@ context Value{
 }
 
 }
+
 context AggregatedValue{
 	constraint oper1par{
 	guard: self.oper=Operation#GET 

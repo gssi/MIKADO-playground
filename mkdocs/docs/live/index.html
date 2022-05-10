@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
-
+    <link rel="stylesheet" href="custom.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/gssi/MIKADO-HTML-css-js/css/joint.css" type="text/css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     
@@ -51,7 +51,7 @@
             <div data-role="splitter"  class="h-100" data-split-mode="vertical" style="min-height: 600px;">
                 <div data-role="splitter" class="h-100" data-split-sizes="50, 50" id="splitter">
                     
-                    <div class="d-flex flex-justify-left flex-align-left" data-role="panel" data-title-caption="Smart City definition">
+                    <div class="d-flex flex-justify-left flex-align-left" data-role="panel" data-title-caption="Smart City definition" data-custom-buttons="modelPanelButtons"> 
                         <div id="SCEditor" class="editor" style="height: 500px; width: 100%"></div>
                     </div>  
                     <div class="d-flex flex-justify-right flex-align-right" data-role="panel" data-title-caption="KPIs"> 
@@ -59,9 +59,15 @@
                     </div>  
                 </div>
                 <div data-role="splitter"  class="h-100" data-split-mode="vertical" style="min-height: 200px;" >
-                    <div class="d-flex flex-justify-left flex-align-left" data-role="panel" data-title-caption="Console" data-custom-buttons="customButtons" style="min-height: 100px;">
-                        <div id="consoleEditor" class="editor" style="height: 150px; width: 100%">Click the button to trigger the evaluation...</div>
+                    <div data-role="splitter" class="h-100" data-split-sizes="50, 50" id="splitter">
+                        <div class="d-flex flex-justify-left flex-align-left" data-role="panel" data-title-caption="Smart city diagram"  style="min-height: 200px;">
+                            <div id="SCDiagram" class="diagram" style="height:300px; max-height: 500px;"></div>
+                        </div>
+                    <div class="d-flex flex-justify-left flex-align-left" data-role="panel" data-title-caption="Console" data-custom-buttons="customButtons" style="min-height: 150px;">
+                        <div id="consoleEditor" class="editor" style="min-height: 150px; width: 100%">Click the button to trigger the evaluation...</div>
                    </div>
+                  
+                </div>
                 </div>
                 <div data-role="splitter"  class="h-100" data-split-mode="vertical" style="min-height: 1000px;" >
                     <div class="d-flex flex-justify-left flex-align-left" data-role="panel" data-title-caption="Generated Dashboard" >
@@ -150,6 +156,8 @@
         return example;
     }
 
+    
+
     function updateFlexmiEditorSyntaxHighlighting(editor) {
         var val = editor.getSession().getValue();
         if ((val.trim()+"").startsWith("<")) {
@@ -228,6 +236,70 @@
         editors.forEach(e => e.resize());
     }
 
+    function toggle(elementId, onEmpty) {
+        var element = document.getElementById(elementId);
+        if (element == null) return;
+
+        if (getComputedStyle(element).display == "none") {
+            element.style.display = "block";
+            if (element.innerHTML.length == 0) {
+                onEmpty();
+            }
+        }
+        else element.style.display = "none";
+    }
+
+    function renderDiagram(diagramId, graphviz, engine) {
+        // Commented out transitions because they don't work well with dashed edges in Graphviz
+        //var t = d3.transition().ease(d3.easeLinear);
+        d3.select("#" + diagramId).graphviz({fit: true, height: "100%", width:"100%", engine: engine})
+            .renderDot(graphviz);
+    }
+
+    function refreshDiagram( diagramId) {
+        
+        var xhr = new XMLHttpRequest();
+        var url = "http://localhost:8003/services/SC2HTML"
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var json = JSON.parse(xhr.responseText);
+                    var t = d3.transition().ease(d3.easeLinear);
+                   
+                        renderDiagram(diagramId, json["scDiagram"], "dot");
+                       
+                        setConsoleOutput(json.output);
+                }
+            }
+        };
+        var data = JSON.stringify(
+            {
+                "scFlexmi": SCEditor.getValue()
+            }
+        );
+        xhr.send(data);
+        
+    }
+
+    function escapeHtml(unsafe) {
+        return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&apos;");
+    }
+
+    function refreshModelDiagram() {
+        refreshDiagram("SCDiagram");
+    }
+
+    function buttonHtml(icon, hint) {
+        return "<span class='mif-" + icon + "' data-role='hint' data-hint-text='" + hint + "' data-hint-position='bottom'></span>";
+    }
+
         var customButtons = [
             {
                 html: "<span class='mif-rocket'></span>",
@@ -235,6 +307,16 @@
                 onclick: "run();"
             }
         ];
+
+        var modelPanelButtons = [{
+        html: buttonHtml("help", "Flexmi language reference"),
+        cls: "sys-button",
+        onclick: "window.open('https://www.eclipse.org/epsilon/doc/flexmi');"
+    },{
+        html: buttonHtml("diagram", "Showsmart city diagram"),
+        cls: "sys-button",
+        onclick: "refreshModelDiagram()"
+    }];
 
         
         var content = "";
