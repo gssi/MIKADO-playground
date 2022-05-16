@@ -280,6 +280,8 @@ if (xhr.status === 200) {
         var url = backendConfig["SC2HTML"];
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+        xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
@@ -431,7 +433,8 @@ var url = backendConfig["Validator"];
 
 xhr.open("POST", url, true);
 xhr.setRequestHeader("Content-Type", "application/json");
-
+xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 // Prepare the json data to send to the backend service
 var data = JSON.stringify({
 		
@@ -449,7 +452,7 @@ xhr.onload = function () {
 
     // Parse the json string returned into a json object
     var json = JSON.parse(xhr.responseText);
-
+    console.log(json);
     // If there is an error, show it in the console
     if (json.hasOwnProperty("error")) {
         setConsoleOutput(json.error);
