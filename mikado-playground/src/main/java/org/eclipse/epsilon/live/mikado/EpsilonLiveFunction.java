@@ -27,8 +27,10 @@ public abstract class EpsilonLiveFunction implements HttpFunction {
 	
 	@Override
 	public void service(HttpRequest request, HttpResponse response) throws Exception {
+		
+		response.appendHeader("Content-Type", "application/json");
 		response.appendHeader("Access-Control-Allow-Origin", "*");
-
+		response.appendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 		if ("OPTIONS".equals(request.getMethod())) {
 			response.appendHeader("Access-Control-Allow-Methods", "GET");
 			response.appendHeader("Access-Control-Allow-Headers", "Content-Type");
