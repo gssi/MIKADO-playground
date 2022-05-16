@@ -1,7 +1,7 @@
 {
   "services": [
-    {"name": "RunEvaluation","url": "http://172.16.2.109:8001/RunEvaluation"},
-    {"name": "Validator", "url": "http://172.16.2.109:8002/Validator"},
-    {"name": "SC2HTML", "url": "http://172.16.2.109:8003/SC2HTML"}
+    {"name": "RunEvaluation","url": "http://localhost:8001/RunEvaluation"},
+    {"name": "Validator", "url": "http://localhost:8002/Validator"},
+    {"name": "SC2HTML", "url": "http://localhost:8003/SC2HTML"}
   ]
 }
