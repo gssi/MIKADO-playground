@@ -93,7 +93,25 @@
     var kpiEditor;
     var editors;
     var examples = {};
+    var backendConfig = {};
+    fetchBackendConfiguration();
+
+
     fetchExamples();
+
+function fetchBackendConfiguration() {
+var xhr = new XMLHttpRequest();
+var url = "backend.json";
+xhr.open("GET", url, false);
+xhr.send(data);
+if (xhr.status === 200) {    
+    var json = JSON.parse(xhr.responseText);
+    for (const service of json.services){
+        backendConfig[service.name] = service.url;
+    }
+}
+}
+
     var json;
 
         function setup(){
@@ -259,7 +277,7 @@
     function refreshDiagram( diagramId) {
         
         var xhr = new XMLHttpRequest();
-        var url = "http://localhost:8003/services/SC2HTML"
+        var url = backendConfig["SC2HTML"];
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function () {
@@ -357,7 +375,7 @@
 
 function runEval(){
     var xhr = new XMLHttpRequest();
-var url = "http://localhost:8001/services/RunEvaluation";
+var url = backendConfig["RunEvaluation"];;
 
 
 xhr.open("POST", url, true);
@@ -409,7 +427,7 @@ function run() {
 // Set up a new asynchronous HTTP request
 // to invoke the backend service
 var xhr = new XMLHttpRequest();
-var url = "http://localhost:8002/services/Validator";
+var url = backendConfig["Validator"];
 
 xhr.open("POST", url, true);
 xhr.setRequestHeader("Content-Type", "application/json");
@@ -470,18 +488,7 @@ function setConsoleOutput(str) {
     }
 
 
-function fetchBackendConfiguration() {
-var xhr = new XMLHttpRequest();
-var url = "backend.json";
-xhr.open("GET", url, false);
-xhr.send(data);
-if (xhr.status === 200) {    
-    var json = JSON.parse(xhr.responseText);
-    for (const service of json.services){
-        backendConfig[service.name] = service.url;
-    }
-}
-}
+
 
 // identify an element to observe
 

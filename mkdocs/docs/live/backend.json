@@ -1,7 +1,7 @@
 {
   "services": [
-    {"name": "RunEvaluation","url": "services/RunEvaluation", "port": "8001"},
-    {"name": "Flexmi2HTML", "url": "services/Flexmi2HTML","port": "8002"},
-    {"name": "SC2HTML", "url": "services/SC2HTML","port": "8003"}
+    {"name": "RunEvaluation","url": "http://localhost:8001/RunEvaluation"},
+    {"name": "Validator", "url": "http://localhost:8002/Validator"},
+    {"name": "SC2HTML", "url": "http://localhost:8003/SC2HTML"}
   ]
 }
