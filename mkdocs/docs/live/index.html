@@ -452,7 +452,7 @@ xhr.onload = function () {
 
     // Parse the json string returned into a json object
     var json = JSON.parse(xhr.responseText);
-    console.log(json);
+    console.log(xhr);
     // If there is an error, show it in the console
     if (json.hasOwnProperty("error")) {
         setConsoleOutput(json.error);
