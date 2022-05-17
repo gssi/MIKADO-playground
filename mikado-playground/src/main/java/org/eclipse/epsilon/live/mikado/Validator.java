@@ -89,7 +89,7 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		
 		Set<UnsatisfiedConstraint> constraints= module.execute();
 		
-		System.out.println(constraints.toString());
+		System.out.println("XXX"+constraints.toString());
 		
 		return  module.getContext().getUnsatisfiedConstraints();
 		
