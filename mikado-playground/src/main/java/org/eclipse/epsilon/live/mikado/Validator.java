@@ -101,7 +101,7 @@ public static void main(String[] args) throws Exception {
 
 		System.out.println(new Validator().run(kpiFlexmi, scFlexmi,
 				
-				System.out, new JsonObject()));
+				System.err, new JsonObject()));
 	}
 
 }
