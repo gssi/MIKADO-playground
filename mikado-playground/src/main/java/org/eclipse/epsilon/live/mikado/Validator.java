@@ -55,7 +55,7 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 			System.out.println(module.getParseProblems().get(0).toString());
 						
 		}
-
+System.out.println(getClass());
 		String kpiEmfatic =  Files.readString(Paths.get(getClass().getResource("kpi.emf").toURI()));
 
 				
