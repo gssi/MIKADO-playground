@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collection;
@@ -80,7 +82,10 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println(e.getCause());
+			StringWriter sw = new StringWriter();
+			e.printStackTrace(new PrintWriter(sw));
+			String exceptionAsString = sw.toString();
+			System.out.println(exceptionAsString);
 		}
 		
 		return  constraints;	
