@@ -35,7 +35,7 @@ public class Validator  extends EpsilonLiveFunction{
 			response.addProperty("error", ("Validation errors: " + validationresults).toString());
 			
 		}*/
-		System.out.println(request);
+		
 		this.main(null);
 	}
 	
