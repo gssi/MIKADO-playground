@@ -71,7 +71,7 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		Set<UnsatisfiedConstraint> constraints = null;
 		
 		try {
-			module.parse(new File("src/main/resources/validate.evl"));
+		module.parse(new File("src/main/resources/validate.evl"));
 		
 		if (!module.getParseProblems().isEmpty()) {
 			
@@ -91,11 +91,9 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		
 		module.getContext().getModelRepository().addModel(scmodel);
 		
-		constraints= module.execute();
+		constraints = module.execute();
 		
-		//System.out.println(constraints.toString());
-		
-	
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
