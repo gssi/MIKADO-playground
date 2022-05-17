@@ -28,6 +28,7 @@ public class Validator  extends EpsilonLiveFunction{
 				request.get("scFlexmi").getAsString(),
 				bos, response);
 		response.addProperty("output", bos.toString());
+		System.out.println(validationresults);
 		if(validationresults.size()>0) {
 			
 			response.addProperty("error", ("Validation errors: " + validationresults).toString());

@@ -434,7 +434,7 @@ var url = backendConfig["Validator"];
 xhr.open("POST", url, true);
 xhr.setRequestHeader("Content-Type", "application/json");
 xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+
 // Prepare the json data to send to the backend service
 var data = JSON.stringify({
 		
@@ -452,15 +452,12 @@ xhr.onload = function () {
 
     // Parse the json string returned into a json object
     var json = JSON.parse(xhr.responseText);
-    console.log(xhr);
+  
     // If there is an error, show it in the console
     if (json.hasOwnProperty("error")) {
         setConsoleOutput(json.error);
         document.getElementById("evalresult").innerHTML = "";
-        }
-    // else if the program executed successfully
-    // show its output in the console
-    else {
+        }else {
       
         
         setConsoleOutput(json.output);

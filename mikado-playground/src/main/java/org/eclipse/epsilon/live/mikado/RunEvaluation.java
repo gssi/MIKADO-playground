@@ -97,7 +97,7 @@ public void run( String kpiFlexmi,  String scFlexmi, OutputStream outputStream, 
 		//to save the evaluated model on the server
 		//targetModel.store();
 		String result = new Flexmi2HTML().run(targetModel);
-		System.err.println(result);
+		
 		response.addProperty("evalresult", result);
 		
 	}
