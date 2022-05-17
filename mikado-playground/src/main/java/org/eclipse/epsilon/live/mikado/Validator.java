@@ -42,9 +42,9 @@ public class Validator  extends EpsilonLiveFunction{
 	}
 	
 public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi, OutputStream outputStream, JsonObject response) throws Exception {
-		System.out.println("ssss");
-		IEolModule module = new EvlModule();
 		
+		IEolModule module = new EvlModule();
+		System.err.println(module.toString());
 		module.parse(new File("src/main/resources/validate.evl"));
 	
 		if (!module.getParseProblems().isEmpty()) {
