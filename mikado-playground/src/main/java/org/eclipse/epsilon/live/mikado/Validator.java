@@ -41,8 +41,9 @@ public class Validator  extends EpsilonLiveFunction{
 		
 	}
 	
-public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi, OutputStream outputStream, JsonObject response) throws Exception {
-		
+public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi, OutputStream outputStream, JsonObject response)  {
+	Set<UnsatisfiedConstraint> constraints=null;
+	try {
 		IEolModule module = new EvlModule();
 		
 		module.parse(new File("src/main/resources/validate.evl"));
@@ -71,17 +72,17 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		InMemoryEmfModel scmodel = getInMemoryFlexmiModel(scFlexmi, scEmfatic);
 		
 		scmodel.setName("sc");
-		Set<UnsatisfiedConstraint> constraints=null;
+		
 		module.getContext().getModelRepository().addModel(scmodel);
-		try {
+		
 		 constraints = (Set<UnsatisfiedConstraint>) module.execute();
 	
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
-		System.out.println(constraints);
+		
 		return  constraints;	
 		
 	}
