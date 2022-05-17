@@ -22,7 +22,7 @@ public class Validator  extends EpsilonLiveFunction{
 	@Override
 	public void serviceImpl(JsonObject request, JsonObject response) throws Exception {
 		// TODO Auto-generated method stub
-		/*ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		
 		Collection<UnsatisfiedConstraint> validationresults = run(request.get("kpiFlexmi").getAsString(), 
 				request.get("scFlexmi").getAsString(),
@@ -34,9 +34,9 @@ public class Validator  extends EpsilonLiveFunction{
 			
 			response.addProperty("error", ("Validation errors: " + validationresults).toString());
 			
-		}*/
+		}
 		
-		this.main(null);
+		
 	}
 	
 public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi, OutputStream outputStream, JsonObject response) throws Exception {
@@ -44,7 +44,9 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		IEolModule module = new EvlModule();
 		
 		module.parse(new File("src/main/resources/validate.evl"));
+		System.out.println("pre");
 		if (!module.getParseProblems().isEmpty()) {
+			System.out.println("empty");
 			System.err.println(module.getParseProblems().get(0).toString());
 			//response.addProperty("error", module.getParseProblems().get(0).toString());
 			
@@ -57,7 +59,7 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 
 		
 		module.getContext().setOutputStream(new PrintStream(outputStream));
-		
+		System.out.println("pre.run");
 		return runEvl((EvlModule) module, kpiFlexmi, kpiEmfatic, scFlexmi, scEmfatic, response); 
 			
 		
