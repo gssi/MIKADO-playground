@@ -1,7 +1,0 @@
-{
-  "services": [
-    {"name": "RunEvaluation","url": "RunEvaluation"},
-    {"name": "Validator", "url": "Validator"},
-    {"name": "SC2HTML", "url": "SC2HTML"}
-  ]
-}
