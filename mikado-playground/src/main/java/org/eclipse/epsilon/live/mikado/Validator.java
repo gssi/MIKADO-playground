@@ -23,6 +23,7 @@ public class Validator  extends EpsilonLiveFunction{
 	@Override
 	public void serviceImpl(JsonObject request, JsonObject response) throws Exception {
 		// TODO Auto-generated method stub
+		/*
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		
 		Collection<UnsatisfiedConstraint> validationresults = run(request.get("kpiFlexmi").getAsString(), 
@@ -36,8 +37,10 @@ public class Validator  extends EpsilonLiveFunction{
 			response.addProperty("error", ("Validation errors: " + validationresults).toString());
 			
 		}
+		*/
+		response.addProperty("error", "prova");
 		
-		
+		response.addProperty("output", "prova2");
 	}
 	
 public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi, OutputStream outputStream, JsonObject response) throws Exception {
