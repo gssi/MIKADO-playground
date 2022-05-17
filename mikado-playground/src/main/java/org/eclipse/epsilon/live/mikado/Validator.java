@@ -23,12 +23,12 @@ public class Validator  extends EpsilonLiveFunction{
 	public void serviceImpl(JsonObject request, JsonObject response) throws Exception {
 		// TODO Auto-generated method stub
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		
+		System.err.println("ciao");
 		Collection<UnsatisfiedConstraint> validationresults = run(    request.get("kpiFlexmi").getAsString(), 
 				request.get("scFlexmi").getAsString(),
 				bos, response);
 		response.addProperty("output", bos.toString());
-		System.out.println(validationresults);
+		
 		if(validationresults.size()>0) {
 			
 			response.addProperty("error", ("Validation errors: " + validationresults).toString());
