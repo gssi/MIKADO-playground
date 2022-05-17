@@ -7,6 +7,7 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.Set;
 
 import org.eclipse.epsilon.emc.emf.InMemoryEmfModel;
 import org.eclipse.epsilon.eol.IEolModule;
@@ -51,7 +52,7 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 			//response.addProperty("error", module.getParseProblems().get(0).toString());
 			
 		}
-		
+
 		String kpiEmfatic =  Files.readString(Paths.get(getClass().getResource("kpi.emf").toURI()));
 
 				
@@ -71,7 +72,7 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		if (!module.getParseProblems().isEmpty()) {
 			
 			//response.addProperty("error", module.getParseProblems().get(0).toString());
-			System.err.println(module.getParseProblems().get(0).toString());
+			System.out.println(module.getParseProblems().get(0).toString());
 			
 		}
 		
@@ -86,9 +87,9 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		
 		module.getContext().getModelRepository().addModel(scmodel);
 		
-		module.execute();
+		Set<UnsatisfiedConstraint> constraints= module.execute();
 		
-		System.out.println(module.getContext().getUnsatisfiedConstraints().toString());
+		System.out.println(constraints.toString());
 		
 		return  module.getContext().getUnsatisfiedConstraints();
 		
