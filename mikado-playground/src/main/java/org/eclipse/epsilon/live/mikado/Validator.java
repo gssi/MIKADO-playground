@@ -59,9 +59,9 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 				
 		String scEmfatic =  Files.readString(Paths.get(getClass().getResource("smart_city.emf").toURI()));
 
-		
+		System.out.println("pre");
 		module.getContext().setOutputStream(new PrintStream(outputStream));
-		
+		System.out.println("post");
 		return runEvl((EvlModule) module, kpiFlexmi, kpiEmfatic, scFlexmi, scEmfatic, response); 
 			
 		
@@ -70,7 +70,7 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 	protected Collection<UnsatisfiedConstraint> runEvl( EvlModule module, String kpiflexmi, String kpiEmfatic, String scFlexmi, String scEmfatic, JsonObject response)  {
 		
 		Set<UnsatisfiedConstraint> constraints = null;
-		System.out.println("qui");
+		
 		try {
 		module.parse(new File("src/main/resources/validate.evl"));
 		
