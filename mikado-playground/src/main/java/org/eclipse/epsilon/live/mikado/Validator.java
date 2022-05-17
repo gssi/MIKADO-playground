@@ -50,18 +50,17 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		if (!module.getParseProblems().isEmpty()) {
 			
 			System.out.println(module.getParseProblems().get(0).toString());
-			//response.addProperty("error", module.getParseProblems().get(0).toString());
-			
+						
 		}
 
 		String kpiEmfatic =  Files.readString(Paths.get(getClass().getResource("kpi.emf").toURI()));
 
 				
 		String scEmfatic =  Files.readString(Paths.get(getClass().getResource("smart_city.emf").toURI()));
-
-		System.out.println("pre");
+		System.out.println(module.getFile().toString());
+		
 		module.getContext().setOutputStream(new PrintStream(outputStream));
-		System.out.println("post");
+		
 		return runEvl((EvlModule) module, kpiFlexmi, kpiEmfatic, scFlexmi, scEmfatic, response); 
 			
 		
