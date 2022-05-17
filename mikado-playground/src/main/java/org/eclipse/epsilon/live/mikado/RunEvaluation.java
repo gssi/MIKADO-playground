@@ -41,7 +41,7 @@ public class RunEvaluation extends EpsilonLiveFunction{
 			run( request.get("kpiFlexmi").getAsString(), 
 			request.get("scFlexmi").getAsString(),
 			bos, response);
-			System.out.println(response);
+			
 			response.addProperty("output", bos.toString());
 	
 		
@@ -96,8 +96,8 @@ public void run( String kpiFlexmi,  String scFlexmi, OutputStream outputStream, 
 		
 		//to save the evaluated model on the server
 		//targetModel.store();
-		
-		response.addProperty("evalresult", new Flexmi2HTML().run(targetModel));
+		String result = new Flexmi2HTML().run(targetModel);
+		response.addProperty("evalresult", result);
 		
 	}
 	
