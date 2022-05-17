@@ -46,7 +46,7 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		IEolModule module = new EvlModule();
 		
 		module.parse(new File("src/main/resources/validate.evl"));
-		System.err.println(module.getParseProblems());
+		
 		if (!module.getParseProblems().isEmpty()) {
 			
 			System.out.println(module.getParseProblems().get(0).toString());
@@ -61,8 +61,28 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		
 		module.getContext().setOutputStream(new PrintStream(outputStream));
 		
-		return runEvl((EvlModule) module, kpiFlexmi, kpiEmfatic, scFlexmi, scEmfatic, response); 
+		//return runEvl((EvlModule) module, kpiFlexmi, kpiEmfatic, scFlexmi, scEmfatic, response); 
+		
+		InMemoryEmfModel kpimodel = getInMemoryFlexmiModel(kpiFlexmi, kpiEmfatic);
+		kpimodel.setName("M");
+		
+		module.getContext().getModelRepository().addModel(kpimodel);
+		
+		InMemoryEmfModel scmodel = getInMemoryFlexmiModel(scFlexmi, scEmfatic);
+		
+		scmodel.setName("sc");
+		Set<UnsatisfiedConstraint> constraints=null;
+		module.getContext().getModelRepository().addModel(scmodel);
+		try {
+		 constraints = (Set<UnsatisfiedConstraint>) module.execute();
+		
 			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return  constraints;	
 		
 	}
 	
