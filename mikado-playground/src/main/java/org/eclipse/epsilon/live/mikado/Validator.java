@@ -80,7 +80,7 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println(e);
+			System.out.println(e.getLocalizedMessage());
 		}
 		
 		return  constraints;	
