@@ -36,23 +36,13 @@ public class RunEvaluation extends EpsilonLiveFunction{
 		
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		
-		/*Validator validator = new Validator();
-		
-		Collection<UnsatisfiedConstraint> validationresults = validator.run(request.get("kpiFlexmi").getAsString(), 
-				request.get("scFlexmi").getAsString(), bos, response);
-		
-		if(validationresults.size()>0) {
-		
-		response.addProperty("error", ("Validation errors: " + validationresults).toString());
 		
 		
-		*/
-		//}else {
 			run( request.get("kpiFlexmi").getAsString(), 
 			request.get("scFlexmi").getAsString(),
 			bos, response);
 			response.addProperty("output", bos.toString());
-		//}
+	
 		
 		
 	}
