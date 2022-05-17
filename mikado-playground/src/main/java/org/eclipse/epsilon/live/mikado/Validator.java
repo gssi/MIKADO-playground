@@ -66,9 +66,13 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		
 	}
 	
-	protected Collection<UnsatisfiedConstraint> runEvl( EvlModule module, String kpiflexmi, String kpiEmfatic, String scFlexmi, String scEmfatic, JsonObject response) throws Exception {
+	protected Collection<UnsatisfiedConstraint> runEvl( EvlModule module, String kpiflexmi, String kpiEmfatic, String scFlexmi, String scEmfatic, JsonObject response)  {
 		
-		module.parse(new File("src/main/resources/validate.evl"));
+		Set<UnsatisfiedConstraint> constraints = null;
+		
+		try {
+			module.parse(new File("src/main/resources/validate.evl"));
+		
 		if (!module.getParseProblems().isEmpty()) {
 			
 			//response.addProperty("error", module.getParseProblems().get(0).toString());
@@ -87,12 +91,17 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		
 		module.getContext().getModelRepository().addModel(scmodel);
 		
-		Set<UnsatisfiedConstraint> constraints= module.execute();
+		constraints= module.execute();
 		
-		System.out.println("XXX"+constraints.toString());
+		//System.out.println(constraints.toString());
 		
-		return  module.getContext().getUnsatisfiedConstraints();
+	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		return  constraints;
 		
 	}
 	
