@@ -35,7 +35,8 @@ public class Validator  extends EpsilonLiveFunction{
 			response.addProperty("error", ("Validation errors: " + validationresults).toString());
 			
 		}*/
-		main(null);
+		System.out.println(request);
+		this.main(null);
 	}
 	
 public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi, OutputStream outputStream, JsonObject response) throws Exception {
