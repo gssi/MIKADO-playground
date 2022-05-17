@@ -75,13 +75,13 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		module.getContext().getModelRepository().addModel(scmodel);
 		try {
 		 constraints = (Set<UnsatisfiedConstraint>) module.execute();
-		
+	
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		System.out.println(constraints);
 		return  constraints;	
 		
 	}
