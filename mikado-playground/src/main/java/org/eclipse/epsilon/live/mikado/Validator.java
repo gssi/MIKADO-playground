@@ -98,10 +98,10 @@ public static void main(String[] args) throws Exception {
 	
 			String kpiFlexmi = Files.readString(Paths.get(RunEvaluation.class.getResource("mykpi.flexmi").toURI()));
 			String scFlexmi = Files.readString(Paths.get(RunEvaluation.class.getResource("aq.flexmi").toURI()));
-
+			System.out.println(scFlexmi);
 		System.out.println(new Validator().run(kpiFlexmi, scFlexmi,
 				
-				System.err, new JsonObject()));
+				System.out, new JsonObject()));
 	}
 
 }
