@@ -46,7 +46,7 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		IEolModule module = new EvlModule();
 		System.err.println(module.toString());
 		module.parse(new File("src/main/resources/validate.evl"));
-	
+		System.err.println(module.getUri());
 		if (!module.getParseProblems().isEmpty()) {
 			
 			System.out.println(module.getParseProblems().get(0).toString());
