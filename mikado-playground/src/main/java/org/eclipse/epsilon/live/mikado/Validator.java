@@ -27,7 +27,7 @@ public class Validator  extends EpsilonLiveFunction{
 		Collection<UnsatisfiedConstraint> validationresults = run(request.get("kpiFlexmi").getAsString(), 
 				request.get("scFlexmi").getAsString(),
 				bos, response);
-		System.err.println(validationresults);
+
 		response.addProperty("output", bos.toString());
 		
 		if(validationresults.size()>0) {
@@ -55,7 +55,7 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 
 		
 		module.getContext().setOutputStream(new PrintStream(outputStream));
-		
+		System.err.println("ok");
 		return runEvl((EvlModule) module, kpiFlexmi, kpiEmfatic, scFlexmi, scEmfatic, response); 
 			
 		
@@ -84,7 +84,7 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		
 		module.execute();
 		
-		//System.out.println(module.getContext().getUnsatisfiedConstraints().toString());
+		System.out.println(module.getContext().getUnsatisfiedConstraints().toString());
 		
 		return  module.getContext().getUnsatisfiedConstraints();
 		
