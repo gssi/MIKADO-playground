@@ -42,7 +42,7 @@ public class Validator  extends EpsilonLiveFunction{
 	}
 	
 public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi, OutputStream outputStream, JsonObject response) throws Exception {
-		
+		System.out.println("ssss");
 		IEolModule module = new EvlModule();
 		
 		module.parse(new File("src/main/resources/validate.evl"));
@@ -57,7 +57,7 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 
 				
 		String scEmfatic =  Files.readString(Paths.get(getClass().getResource("smart_city.emf").toURI()));
-		System.out.println(scFlexmi.toString());
+		
 		
 		module.getContext().setOutputStream(new PrintStream(outputStream));
 		
