@@ -44,10 +44,10 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		IEolModule module = new EvlModule();
 		
 		module.parse(new File("src/main/resources/validate.evl"));
-		System.out.println("pre");
+	
 		if (!module.getParseProblems().isEmpty()) {
-			System.out.println("empty");
-			System.err.println(module.getParseProblems().get(0).toString());
+			
+			System.out.println(module.getParseProblems().get(0).toString());
 			//response.addProperty("error", module.getParseProblems().get(0).toString());
 			
 		}
@@ -59,7 +59,7 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 
 		
 		module.getContext().setOutputStream(new PrintStream(outputStream));
-		System.out.println("pre.run");
+		
 		return runEvl((EvlModule) module, kpiFlexmi, kpiEmfatic, scFlexmi, scEmfatic, response); 
 			
 		
