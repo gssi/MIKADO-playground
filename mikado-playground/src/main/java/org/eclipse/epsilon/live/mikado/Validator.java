@@ -57,7 +57,7 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 
 				
 		String scEmfatic =  Files.readString(Paths.get(getClass().getResource("smart_city.emf").toURI()));
-		System.out.println(module.getFile().toString());
+		System.out.println(scFlexmi.toString());
 		
 		module.getContext().setOutputStream(new PrintStream(outputStream));
 		
