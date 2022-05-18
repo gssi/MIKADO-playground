@@ -31,9 +31,10 @@ public abstract class EpsilonLiveFunction implements HttpFunction {
 		response.appendHeader("Content-Type", "application/json");
 		response.appendHeader("Access-Control-Allow-Origin", "*");
 		
+		
 		if ("OPTIONS".equals(request.getMethod())) {
-			response.appendHeader("Access-Control-Allow-Methods", "GET");
-			response.appendHeader("Access-Control-Allow-Headers", "Content-Type");
+			response.appendHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,HEAD");
+			response.appendHeader("Access-Control-Allow-Headers", "Content-Type, access-control-allow-origin");
 			response.appendHeader("Access-Control-Max-Age", "3600");
 			response.setStatusCode(HttpURLConnection.HTTP_NO_CONTENT);
 			return;
