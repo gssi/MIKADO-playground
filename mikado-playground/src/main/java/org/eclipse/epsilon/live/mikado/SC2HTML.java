@@ -18,8 +18,7 @@ import com.google.gson.JsonObject;
 public class SC2HTML extends EpsilonLiveFunction {
 
 	public static void main(String[] args) throws Exception {
-		String scFlexmi = Files.readString(Paths.get(RunEvaluation.class.getResource("aq.flexmi").toURI()));
-
+		String scFlexmi = Files.readString(Paths.get(new File("src/main/resources/aq.flexmi").toURI()));
 		System.out.println(
 				new SC2HTML().
 				run(scFlexmi));
@@ -43,7 +42,8 @@ public class SC2HTML extends EpsilonLiveFunction {
 	
 	
 	protected String run(String flexmi) throws Exception {
-		String scEmfatic =  Files.readString(Paths.get(getClass().getResource("smart_city.emf").toURI()));
+		String scEmfatic =  Files.readString(Paths.get(new File("src/main/resources/smart_city.emf").toURI()));
+				
 		
 		return run(getInMemoryFlexmiModel(flexmi, scEmfatic));
 	}

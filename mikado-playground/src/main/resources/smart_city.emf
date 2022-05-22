@@ -27,10 +27,6 @@ class SmartCity {
     attr int value;
   }
   
-   
-  
-  
-
   class DataPackage {
     attr String name;
     val Data[*] data;
@@ -53,6 +49,12 @@ class SmartCity {
   class ExternalService extends Source{
   	attr String url;
   	val Argument[*] arguments;
+  	val Property[1] property;
+  }
+  
+  class Property{
+  	attr String name;
+  	val Property[?] nestedproperty;
   }
   
   class Argument{

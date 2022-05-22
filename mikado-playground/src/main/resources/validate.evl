@@ -67,7 +67,7 @@ context AggregatedValue{
 	message: "operation must have 1 arguments"
 	}
 	constraint operations2par{
-	guard: self.oper=Operation#DIV
+	guard: self.oper=Operation#DIV or self.oper=Operation#GT or self.oper=Operation#LT
 	check: self.values.size()==2
 	message: "operation must have 2 arguments"
 	}

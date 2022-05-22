@@ -144,6 +144,8 @@ enum Operation{
 	OR=8;
 	XOR=9;
 	MULT=10;
+	GT=11;
+	LT=12;
 }
 
 

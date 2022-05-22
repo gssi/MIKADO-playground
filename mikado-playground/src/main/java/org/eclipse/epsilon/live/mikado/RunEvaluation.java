@@ -36,8 +36,6 @@ public class RunEvaluation extends EpsilonLiveFunction{
 		
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		
-		
-		
 			run( request.get("kpiFlexmi").getAsString(), 
 			request.get("scFlexmi").getAsString(),
 			bos, response);
@@ -59,10 +57,10 @@ public void run( String kpiFlexmi,  String scFlexmi, OutputStream outputStream, 
 		}
 	
 		
-		String kpiEmfatic =  Files.readString(Paths.get(getClass().getResource("kpi.emf").toURI()));
+		String kpiEmfatic =  Files.readString(Paths.get(new File("src/main/resources/kpi.emf").toURI()));
 
 				
-		String scEmfatic =  Files.readString(Paths.get(getClass().getResource("smart_city.emf").toURI()));
+		String scEmfatic =  Files.readString(Paths.get(new File("src/main/resources/smart_city.emf").toURI()));
 
 		
 		module.getContext().setOutputStream(new PrintStream(outputStream));
@@ -95,7 +93,7 @@ public void run( String kpiFlexmi,  String scFlexmi, OutputStream outputStream, 
 		module.execute();
 		
 		//to save the evaluated model on the server
-		//targetModel.store();
+		targetModel.store();
 		String result = new Flexmi2HTML().run(targetModel);
 		
 		response.addProperty("evalresult", result);
@@ -106,9 +104,8 @@ public static void main(String[] args) throws Exception {
 		
 		//new RunEvaluation().getEPackage("package foo;");
 	
-			String kpiFlexmi = Files.readString(Paths.get(RunEvaluation.class.getResource("mykpi.flexmi").toURI()));
-			String scFlexmi = Files.readString(Paths.get(RunEvaluation.class.getResource("aq.flexmi").toURI()));
-
+			String kpiFlexmi = Files.readString(Paths.get(new File("src/main/resources/mykpi.flexmi").toURI()));
+			String scFlexmi = Files.readString(Paths.get(new File("src/main/resources/aq.flexmi").toURI()));
 		
 		new RunEvaluation().run(kpiFlexmi, scFlexmi,
 				

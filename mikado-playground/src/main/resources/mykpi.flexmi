@@ -4,18 +4,20 @@ Dimension: {
 name: Environment,
 Category: {
 name: Public Spaces,
-parameters:{
+parameters: {
 Parameter: {name: citypop},
 Parameter: {name: TGA}, 
 Parameter: {name: BLP}, 
-Parameter: {name: PM2.5}, 
-Parameter: {name: PM10}, 
-Parameter: {name: NO2}, 
-Parameter: {name: O3},
-Parameter: {name: SO2},
-Parameter: {name: TM}
+Parameter: {name: TM},
+Parameter: {name: NoiseLevel}
 }, 
 kpis: {
+Kpi:{
+name: NoiseLV,
+description: Noise pollution,
+value: { valuetype: { AggregatedBoolValue: { oper: GT, targetvalue: true, 
+values: { RealValue: {parameter: NoiseLevel}, StaticRealValue: {actualizedvalue: 55.0}}}}}
+},
 Kpi: { 
 name: GA,
 description: Green Areas,
@@ -49,12 +51,19 @@ StaticRealValue: {actualizedvalue: 100000}}}}}
 Kpi: {
     name: TMS,
     description: availability of transport monitoring service,
-    value: {valuetype: {BoolValue: {parameter: TM, targetvalue: false}}}
+    value: {valuetype: {BoolValue: {parameter: TM}}}
 }
 }
 },
 Category: {
     name: Air Quality,
+    parameters: {
+    Parameter: {name: PM2.5}, 
+    Parameter: {name: PM10}, 
+    Parameter: {name: NO2}, 
+    Parameter: {name: O3},
+    Parameter: {name: SO2}
+    },
     kpis: {
         Kpi: {
             name: AQI,

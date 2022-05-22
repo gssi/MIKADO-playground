@@ -9,7 +9,7 @@ var start = instant.now();
 
 var smartcity=sc!SmartCity.all.first;
 ("Evaluating "+smartcity.city+"...").println();
-("Required: "+Kpi.all.size()+" kpis").println();
+("Required: "+Source!Kpi.all.size()+" kpis").println();
 }
 
 
@@ -135,7 +135,7 @@ eval.max=range.max;
 rule AggregatedRealValue
 transform aggr: Source!AggregatedRealValue
 to eval: Target!AggregatedRealValue{
-eval.oper = aggr.oper.equivalent();
+eval.oper = aggr.oper.targetOp();
 eval.values::= aggr.values;
 eval.actualizedvalue =  aggr.get(smartcity).asReal();
 eval.targetvalue = aggr.targetvalue;
@@ -144,7 +144,7 @@ eval.targetvalue = aggr.targetvalue;
 rule AggregatedBoolValue
 transform aggr: Source!AggregatedBoolValue
 to eval: Target!AggregatedBoolValue{
-eval.oper::=aggr.oper;
+eval.oper = aggr.oper.targetOp();
 eval.values::= aggr.values;
 eval.actualizedvalue = aggr.get(smartcity);
 eval.targetvalue = aggr.targetvalue;
@@ -153,7 +153,7 @@ eval.targetvalue = aggr.targetvalue;
 rule AggregatedIntegerValue
 transform aggr: Source!AggregatedIntegerValue
 to eval: Target!AggregatedIntegerValue{
-eval.oper=aggr.oper;
+eval.oper = aggr.oper.targetOp();
 eval.values::= aggr.values;
 eval.actualizedvalue = aggr.get(smartcity);
 eval.targetvalue = aggr.targetvalue;
@@ -163,7 +163,7 @@ eval.targetvalue = aggr.targetvalue;
 rule AggregatedStringValue
 transform aggr: Source!AggregatedStringValue
 to eval: Target!AggregatedStringValue{
-eval.oper=aggr.oper;
+eval.oper = aggr.oper.targetOp();
 eval.values::= aggr.values;
 eval.actualizedvalue = aggr.get(smartcity);
 eval.targetvalue = aggr.targetvalue;
@@ -184,7 +184,5 @@ post{
 var end = instant.now();
 var elapsedTime : Real = duration.between(start,end).toMillis();
 ("Runtime evaluation took "+elapsedTime+" ms").println();
-
-
 }
 

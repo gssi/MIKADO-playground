@@ -1,3 +1,21 @@
+
+operation Any targetOp(): Any{
+switch(self){
+case Source!Operation#GET: return Target!Operation#GET;
+case Source!Operation#SUM: return Target!Operation#SUM;
+case Source!Operation#AVG: return Target!Operation#AVG;
+case Source!Operation#MIN: return Target!Operation#MIN;
+case Source!Operation#MAX: return Target!Operation#MAX;
+case Source!Operation#DIV: return Target!Operation#DIV;
+case Source!Operation#MULT: return Target!Operation#MULT;
+case Source!Operation#GT: return Target!Operation#GT;
+case Source!Operation#LT: return Target!Operation#LT;
+case Source!Operation#CEN: Target!Operation#CEN;
+default : "No operation provided ".println(); 
+}
+
+}
+
 operation Real getRounded():Real{
 var decimal = new Native("java.text.DecimalFormat");
 decimal.applyPattern("###.###");
@@ -17,36 +35,86 @@ operation Source!StaticIntegerValue get(city: sc!SmartCity): Any{
 	return self.actualizedvalue;
 }
 
+operation sc!Data getValue(){
+
+if(self.src.isKindOf(sc!ExternalService)){
+
+	var url = (self.src.url);
+	for (arg in self.src.arguments) { 
+	
+		url= url+"/"+arg.value;
+		
+	}
+	var URL = new  Native("java.net.URL")(url);
+
+	var io =  new Native("java.io.InputStreamReader")(URL.openStream());
+
+	var jsonparser = new Native("org.json.simple.parser.JSONParser");
+
+	var jsonobj = jsonparser.parse(io);
+	
+	
+	return self.src.property.getJsonProp(jsonobj).ifUndefined(self.value);
+	
+	
+	
+	}else{
+
+	return self.value;
+	
+	}
+}
+
+
+
+operation sc!Property getJsonProp(jsonobj: Any){
+
+if(self.nestedproperty.isUndefined()) return jsonobj.get(self.name);
+var piecejson = jsonobj.get(self.name);
+return self.nestedproperty.getJsonProp(piecejson);
+}
+
 operation Source!RealValue get(city: sc!smartcity::SmartCity): Real{
 var data = sc!Data.all;
 
 if(data.exists(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name)){ 
-return data.selectOne(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name).value;
+return data.selectOne(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name).getValue().asReal();
 }
 }
 
 operation Source!BoolValue get(city: sc!SmartCity): Boolean{
 var data = sc!Data.all;
 if(data.exists(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name)){ 
-return data.selectOne(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name).value;
+return data.selectOne(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name).getValue().asBoolean();
 }
 }
 
 operation Source!IntegerValue get(city: sc!SmartCity): Integer{
 var data = sc!Data.all;
 if(data.exists(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name)){ 
-return data.selectOne(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name).value;
+return data.selectOne(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name).getValue().asInteger();
 }
 }
 
 operation Source!StringValue get(city: sc!SmartCity): String{
 var data = sc!Data.all;
 if(data.exists(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name)){ 
-return data.selectOne(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name).value;
+return data.selectOne(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name).getValue().asString();
 }
 }
 
 operation Source!AggregatedRealValue get(city: sc!SmartCity): Any{
+//self.values.equivalent().collect(e|e.actualizedvalue).println();
+return self.values.equivalent().collect(e|e.actualizedvalue).getop(self.oper);
+	
+}
+operation Source!AggregatedIntegerValue get(city: sc!SmartCity): Any{
+//self.values.equivalent().collect(e|e.actualizedvalue).println();
+return self.values.equivalent().collect(e|e.actualizedvalue).getop(self.oper);
+	
+}
+
+operation Source!AggregatedBoolValue get(city: sc!SmartCity): Any{
 //self.values.equivalent().collect(e|e.actualizedvalue).println();
 return self.values.equivalent().collect(e|e.actualizedvalue).getop(self.oper);
 	
@@ -62,6 +130,12 @@ if(self.ranges.selectOne(r|r.min <= value and r.max >= value).isDefined()) {
 	
 }
 
+operation Real convert(): Real{
+return self;
+}
+operation Boolean convert(): Real{
+return self ? 1:0;
+}
 
 
 operation Any getop(op: Any): Any{
@@ -73,7 +147,10 @@ case Source!Operation#AVG: return self.sum()/self.size();
 case Source!Operation#MIN: return self.min();
 case Source!Operation#MAX: return self.max();
 case Source!Operation#DIV: return self.get(0).ifUndefined(0)/self.get(1).ifUndefined(0);
-case Source!Operation#MULT: return self.get(0)*self.get(1);
+case Source!Operation#MULT: return self.get(0).convert() *self.get(1).convert();
+
+case Source!Operation#GT: return (self.get(0)>=self.get(1));
+case Source!Operation#LT: return self.get(0)<=self.get(1);
 case Source!Operation#CEN: if(self.get(0) >= 100000) return self.get(0) / 100000; else return self.get(0) / self.get(0);
 default : "No operation provided ".println(); }
 

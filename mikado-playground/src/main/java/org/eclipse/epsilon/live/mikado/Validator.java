@@ -34,7 +34,8 @@ public class Validator  extends EpsilonLiveFunction{
 
 		response.addProperty("output", bos.toString());
 		
-		if(validationresults.size()>0) {
+		
+		if(validationresults!=null && validationresults.size()>0) {
 			
 			response.addProperty("error", ("Validation errors: " + validationresults).toString());
 			
@@ -56,10 +57,10 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 						
 		}
 
-		String kpiEmfatic =  Files.readString(Paths.get(getClass().getResource("kpi.emf").toURI()));
+		String kpiEmfatic =  Files.readString(Paths.get(new File("src/main/resources/kpi.emf").toURI()));
 
 				
-		String scEmfatic =  Files.readString(Paths.get(getClass().getResource("smart_city.emf").toURI()));
+		String scEmfatic = Files.readString(Paths.get(new File("src/main/resources/smart_city.emf").toURI()));
 		
 		
 		module.getContext().setOutputStream(new PrintStream(outputStream));
@@ -92,49 +93,13 @@ public Collection<UnsatisfiedConstraint> run( String kpiFlexmi,  String scFlexmi
 		
 	}
 	
-	protected Collection<UnsatisfiedConstraint> runEvl( EvlModule module, String kpiflexmi, String kpiEmfatic, String scFlexmi, String scEmfatic, JsonObject response)  {
-		
-		Set<UnsatisfiedConstraint> constraints = null;
-		
-		try {
-		module.parse(new File("src/main/resources/validate.evl"));
-		
-		if (!module.getParseProblems().isEmpty()) {
-			
-			//response.addProperty("error", module.getParseProblems().get(0).toString());
-			System.out.println(module.getParseProblems().get(0).toString());
-			
-		}
-		
-		InMemoryEmfModel kpimodel = getInMemoryFlexmiModel(kpiflexmi, kpiEmfatic);
-		kpimodel.setName("M");
-		
-		module.getContext().getModelRepository().addModel(kpimodel);
-		
-		InMemoryEmfModel scmodel = getInMemoryFlexmiModel(scFlexmi, scEmfatic);
-		
-		scmodel.setName("sc");
-		
-		module.getContext().getModelRepository().addModel(scmodel);
-		
-		constraints = module.execute();
-		
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return  constraints;
-		
-	}
 	
 public static void main(String[] args) throws Exception {
 		
 		//new RunEvaluation().getEPackage("package foo;");
 	
-			String kpiFlexmi = Files.readString(Paths.get(RunEvaluation.class.getResource("mykpi.flexmi").toURI()));
-			String scFlexmi = Files.readString(Paths.get(RunEvaluation.class.getResource("aq.flexmi").toURI()));
+			String kpiFlexmi =Files.readString(Paths.get(new File("src/main/resources/mykpi.flexmi").toURI()));
+			String scFlexmi = Files.readString(Paths.get(new File("src/main/resources/aq.flexmi").toURI()));
 			//System.out.println(scFlexmi);
 		System.out.println(new Validator().run(kpiFlexmi, scFlexmi,
 				
