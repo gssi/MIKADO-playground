@@ -1,4 +1,6 @@
 [%
+import "util/util.eol";
+
 var data = Data.all;
 var packages = DataPackage.all;
 var sources = Source.all;
@@ -35,8 +37,9 @@ subgraph "cluster_[%=p.name.trim()%]" {
 	edge[fontname="Arial", fontsize="10"]
 		"[%=s.name%]"[ label=<
        <table cellspacing='-1' cellborder='0' cellpadding='3'>
+       
 			<tr>
-				<td bgcolor="yellow" border="1" sides="B"><font face='Arial'>[%=s.name%]</font></td>
+				<td bgcolor="[%=s.type.name.getColor()%]" border="1" sides="B" ><font face='Arial'>[%=s.name%]</font></td>
 			</tr>
 			<tr>
 				<td align="left" cellpadding="5">
@@ -46,7 +49,7 @@ subgraph "cluster_[%=p.name.trim()%]" {
 						
 						<br/>[%=s.devices.size()%] devices
 					[%case("OpenData"):%]
-						<br/>[%=s.url%]
+						<br/>[%=s.name%]
 					[%case("Stakeholder"):%]
 						<br/>[%=s.organization%]
 						[%case("ExternalService"):%]
@@ -58,6 +61,7 @@ subgraph "cluster_[%=p.name.trim()%]" {
 					<br align='left'/>
 				</td>
 			</tr>
+			
 		</table>
     >]
 		

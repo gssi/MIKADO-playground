@@ -3,6 +3,7 @@ operation Any targetOp(): Any{
 switch(self){
 case Source!Operation#GET: return Target!Operation#GET;
 case Source!Operation#SUM: return Target!Operation#SUM;
+case Source!Operation#DIFF: return Target!Operation#DIFF;
 case Source!Operation#AVG: return Target!Operation#AVG;
 case Source!Operation#MIN: return Target!Operation#MIN;
 case Source!Operation#MAX: return Target!Operation#MAX;
@@ -37,14 +38,12 @@ operation Source!StaticIntegerValue get(city: sc!SmartCity): Any{
 
 operation sc!Data getValue(){
 
-if(self.src.isKindOf(sc!ExternalService)){
+if(self.src.isKindOf(sc!ExternalService) ){
 
-	var url = (self.src.url);
-	for (arg in self.src.arguments) { 
+	var url = self.src.url;
 	
-		url= url+"/"+arg.value;
-		
-	}
+	
+	
 	var URL = new  Native("java.net.URL")(url);
 
 	var io =  new Native("java.io.InputStreamReader")(URL.openStream());
@@ -53,10 +52,7 @@ if(self.src.isKindOf(sc!ExternalService)){
 
 	var jsonobj = jsonparser.parse(io);
 	
-	
 	return self.src.property.getJsonProp(jsonobj).ifUndefined(self.value);
-	
-	
 	
 	}else{
 
@@ -70,7 +66,9 @@ if(self.src.isKindOf(sc!ExternalService)){
 operation sc!Property getJsonProp(jsonobj: Any){
 
 if(self.nestedproperty.isUndefined()) return jsonobj.get(self.name);
+
 var piecejson = jsonobj.get(self.name);
+
 return self.nestedproperty.getJsonProp(piecejson);
 }
 
@@ -78,6 +76,7 @@ operation Source!RealValue get(city: sc!smartcity::SmartCity): Real{
 var data = sc!Data.all;
 
 if(data.exists(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name)){ 
+//data.selectOne(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name).getValue().println();
 return data.selectOne(d|d.name.toLowerCase()==self.parameter.name.toLowerCase() and d.eClass.name==self.eClass.name).getValue().asReal();
 }
 }
@@ -143,10 +142,11 @@ operation Any getop(op: Any): Any{
 switch (op) {
 case Source!Operation#GET: return self.first;
 case Source!Operation#SUM: return self.sum();
+case Source!Operation#DIFF: return (self.get(0)>self.get(1))?self.get(0)-self.get(1):self.get(1)-self.get(0);
 case Source!Operation#AVG: return self.sum()/self.size();
 case Source!Operation#MIN: return self.min();
 case Source!Operation#MAX: return self.max();
-case Source!Operation#DIV: return self.get(0).ifUndefined(0)/self.get(1).ifUndefined(0);
+case Source!Operation#DIV: return (self.get(0).ifUndefined(0)/self.get(1).ifUndefined(0));
 case Source!Operation#MULT: return self.get(0).convert() *self.get(1).convert();
 
 case Source!Operation#GT: return (self.get(0)>=self.get(1));

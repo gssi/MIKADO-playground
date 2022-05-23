@@ -5,6 +5,19 @@ return decimal.format(self).asReal();
 //return self.asReal();
 }
 
+operation String getColor(){
+switch(self){
+case "OpenData":
+return "cyan";
+case "Stakeholder":
+return "lightgray";
+default: 
+return "yellow";
+
+}
+
+}
+
 operation kpi_model::Value getValue(){
 
 	return self.valuetype.getActualizedValue();
@@ -18,7 +31,7 @@ operation kpi_model::Value getTargetValue(){
 }
 
 operation kpi_model::AggregatedValue getActualizedValue(){
-if(self.actualizedvalue<1) return self.actualizedvalue+0.1;
+
 	return self.actualizedvalue;
 }
 

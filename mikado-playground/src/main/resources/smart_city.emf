@@ -41,14 +41,14 @@ class SmartCity {
    
   }
 
-  class OpenData extends Source {
-    attr String url;
+  class OpenData extends ExternalService {
+  
    
   }
   
   class ExternalService extends Source{
   	attr String url;
-  	val Argument[*] arguments;
+  	
   	val Property[1] property;
   }
   
@@ -57,10 +57,7 @@ class SmartCity {
   	val Property[?] nestedproperty;
   }
   
-  class Argument{
-  	attr String name;
-  	attr String value;
-  }
+  
   
    class Stakeholder extends Source {
    

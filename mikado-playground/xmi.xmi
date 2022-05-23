@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
-<kpi:KpiModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:kpi="http://cs.gssi.it/kpi" subject="L'Aquila" evaldate="2022-05-22T16:50:26.424+0200">
+<kpi:KpiModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:kpi="http://cs.gssi.it/kpi" subject="L'Aquila" evaldate="2022-05-23T16:15:41.527+0200">
   <dimensions name="Environment">
     <categories name="Public Spaces">
-      <kpis name="NoiseLV" description="Noise pollution">
-        <value>
-          <valuetype xsi:type="kpi:AggregatedBoolValue" oper="GT" actualizedvalue="true" targetvalue="true">
-            <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.4" actualizedvalue="60.0"/>
-            <values xsi:type="kpi:StaticRealValue" actualizedvalue="55.0"/>
-          </valuetype>
-        </value>
-      </kpis>
       <kpis name="GA" description="Green Areas" unit="green spaces">
         <value>
           <valuetype xsi:type="kpi:AggregatedRealValue" oper="DIV" actualizedvalue="64.28571319580078" targetvalue="100.0">
@@ -48,23 +40,38 @@
       <parameters name="BLP"/>
       <parameters name="TM"/>
       <parameters name="NoiseLevel"/>
+      <parameters name="districtPopPerc"/>
+      <parameters name="countrysideTemp"/>
+      <parameters name="cityTemp"/>
+      <parameters name="humidity"/>
     </categories>
     <categories name="Air Quality">
+      <kpis name="NoiseLV" description="Noise pollution" unit="%">
+        <value>
+          <valuetype xsi:type="kpi:AggregatedRealValue" oper="MULT" actualizedvalue="6.0" targetvalue="100.0">
+            <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.5" actualizedvalue="6.0"/>
+            <values xsi:type="kpi:AggregatedBoolValue" oper="GT" actualizedvalue="true" targetvalue="true">
+              <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.4" actualizedvalue="48.0"/>
+              <values xsi:type="kpi:StaticRealValue" actualizedvalue="45.0"/>
+            </values>
+          </valuetype>
+        </value>
+      </kpis>
       <kpis name="AQI" description="Air quality Index">
         <value>
           <valuetype xsi:type="kpi:AggregatedRangedValue" actualizedvalue="Excellent">
-            <values xsi:type="kpi:AggregatedRealValue" oper="MAX" actualizedvalue="28.0">
-              <values xsi:type="kpi:AggregatedRealValue" oper="MULT" actualizedvalue="28.0">
+            <values xsi:type="kpi:AggregatedRealValue" oper="MAX" actualizedvalue="20.0">
+              <values xsi:type="kpi:AggregatedRealValue" oper="MULT" actualizedvalue="20.0">
                 <values xsi:type="kpi:StaticRealValue" actualizedvalue="100.0"/>
-                <values xsi:type="kpi:AggregatedRealValue" oper="DIV" actualizedvalue="0.2800000011920929">
-                  <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.1/@parameters.0" actualizedvalue="7.0"/>
+                <values xsi:type="kpi:AggregatedRealValue" oper="DIV" actualizedvalue="0.20000000298023224">
+                  <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.1/@parameters.0" actualizedvalue="5.0"/>
                   <values xsi:type="kpi:StaticRealValue" actualizedvalue="25.0"/>
                 </values>
               </values>
-              <values xsi:type="kpi:AggregatedRealValue" oper="MULT" actualizedvalue="12.0">
+              <values xsi:type="kpi:AggregatedRealValue" oper="MULT" actualizedvalue="8.0">
                 <values xsi:type="kpi:StaticRealValue" actualizedvalue="100.0"/>
-                <values xsi:type="kpi:AggregatedRealValue" oper="DIV" actualizedvalue="0.11999999731779099">
-                  <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.1/@parameters.1" actualizedvalue="6.0"/>
+                <values xsi:type="kpi:AggregatedRealValue" oper="DIV" actualizedvalue="0.07999999821186066">
+                  <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.1/@parameters.1" actualizedvalue="4.0"/>
                   <values xsi:type="kpi:StaticRealValue" actualizedvalue="50.0"/>
                 </values>
               </values>
@@ -107,10 +114,31 @@
       </kpis>
       <kpis name="PM2.5 emissions" unit="ng/m3">
         <value>
-          <valuetype xsi:type="kpi:AggregatedRealValue" oper="DIV" actualizedvalue="9.999999747378752E-5" targetvalue="1.0">
-            <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.1/@parameters.0" actualizedvalue="7.0"/>
+          <valuetype xsi:type="kpi:AggregatedRealValue" oper="DIV" actualizedvalue="7.142857066355646E-5" targetvalue="1.0">
+            <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.1/@parameters.0" actualizedvalue="5.0"/>
             <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.0" actualizedvalue="70000.0"/>
           </valuetype>
+        </value>
+      </kpis>
+      <kpis name="UHI" description="Urban heath island" unit="&#xb0;C UHI max">
+        <value>
+          <valuetype xsi:type="kpi:AggregatedRangedValue" actualizedvalue="LOW" targetvalue="LOW">
+            <values xsi:type="kpi:AggregatedRealValue" oper="DIFF" actualizedvalue="0.35700035095214844">
+              <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.6" actualizedvalue="30.489999771118164"/>
+              <values xsi:type="kpi:AggregatedRealValue" oper="DIV" actualizedvalue="30.132999420166016">
+                <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.7" actualizedvalue="301.3299865722656"/>
+                <values xsi:type="kpi:StaticRealValue" actualizedvalue="10.0"/>
+              </values>
+            </values>
+            <ranges name="LOW" max="2.0"/>
+            <ranges name="MED" min="2.1" max="4.0"/>
+            <ranges name="HI" min="4.1" max="10.0"/>
+          </valuetype>
+        </value>
+      </kpis>
+      <kpis name="HumidityLV" description="Humidity level" unit="%RHm">
+        <value>
+          <valuetype xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.8" actualizedvalue="33.290000915527344" targetvalue="100.0"/>
         </value>
       </kpis>
       <parameters name="PM2.5"/>

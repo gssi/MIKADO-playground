@@ -1,4 +1,5 @@
 ?nsuri: http://cs.gssi.it/kpi  
+
 KpiModel: {
 Dimension: {
 name: Environment,
@@ -9,15 +10,13 @@ Parameter: {name: citypop},
 Parameter: {name: TGA}, 
 Parameter: {name: BLP}, 
 Parameter: {name: TM},
-Parameter: {name: NoiseLevel}
+Parameter: {name: NoiseLevel},
+Parameter: {name: districtPopPerc},
+Parameter: {name: countrysideTemp},
+Parameter: {name: cityTemp},
+Parameter: {name: humidity}
 }, 
 kpis: {
-Kpi:{
-name: NoiseLV,
-description: Noise pollution,
-value: { valuetype: { AggregatedBoolValue: { oper: GT, targetvalue: true, 
-values: { RealValue: {parameter: NoiseLevel}, StaticRealValue: {actualizedvalue: 55.0}}}}}
-},
 Kpi: { 
 name: GA,
 description: Green Areas,
@@ -65,6 +64,16 @@ Category: {
     Parameter: {name: SO2}
     },
     kpis: {
+        Kpi: {
+name: NoiseLV,
+description: Noise pollution,
+unit: "%",
+value: { valuetype: { 
+    AggregatedRealValue: { oper: MULT, targetvalue: 100.0, values:{
+    RealValue: {parameter: districtPopPerc},    
+    AggregatedBoolValue: { oper: GT, targetvalue: true, 
+    values: { RealValue: {parameter: NoiseLevel}, StaticRealValue: {actualizedvalue: 45.0}}}}}
+}}},
         Kpi: {
             name: AQI,
             description: Air quality Index,
@@ -132,6 +141,56 @@ Category: {
                 values: { RealValue: {parameter: PM2.5}, RealValue: {parameter: citypop}}
             }}}
         },
+        Kpi: {
+            name: UHI,
+            unit: ° C UHI max,
+            description: Urban heath island,
+            unit: "°C UHI max",
+            value: {
+            
+                valuetype: {
+                
+                    AggregatedRangedValue: {
+                    targetvalue: LOW,
+                        oper: GET,
+                ranges: {
+                Range: {name: LOW, min: 0.0, max: 2.0}, 
+                Range: {name: MED, min: 2.1, max: 4.0}, 
+                Range: {name: HI, min: 4.1, max: 10.0}
+                },
+                    values: {
+                    AggregatedRealValue: {
+                       oper: DIFF,
+                       values: {
+                          RealValue: {parameter: countrysideTemp},
+                          AggregatedRealValue: {
+                          oper: DIV,
+                          values: {
+                          RealValue: {parameter: cityTemp},
+                          StaticRealValue: {actualizedvalue: 10.0}
+                          }
+                          }
+                           
+                        }
+                        }
+                    }
+                    }
+            }
+            }
+        },
+        Kpi: {
+            name: HumidityLV,
+            description: Humidity level,
+            units: "%RHm",
+            value: {
+                valuetype: {
+                    RealValue: {
+                        targetvalue: 100.0,
+                        parameter: humidity
+                    }
+                }
+            }
+        }
     }
 }
 }

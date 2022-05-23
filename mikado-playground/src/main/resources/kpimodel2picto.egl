@@ -53,9 +53,12 @@ Smart city Dashboard <b>[%=KpiModel.all.first.subject%]</b> - Evaluation date:[%
                       [%if(kpi.value.valuetype.isKindOf(AggregatedRangedValue)){%]
                       [%for (range in kpi.value.valuetype.ranges.name) { %]
                       
-                      <button class="button [%=(kpi.value.getValue()==range)?'dark':''%]"><span class="ml-1">[%=range%]</span>[%if(kpi.value.getTargetValue().isDefined()){%]<span class="badge">[%=(kpi.value.getTargetValue()==range)?"target":""%]</span>[%}%]</button>
+                      <button class="button [%=(kpi.value.getValue()==range)?'dark':''%]"><span class="ml-1">[%=range%]</span>[%if(kpi.value.valuetype.getTargetValue().isDefined()){%]<span class="badge">[%=(kpi.value.valuetype.getTargetValue()==range)?"target":""%]</span>[%}%]</button>
                       
                       [%}%]
+                    
+                      <br/>
+                      [%if(kpi.unit.isDefined()){%]<span class="badge inline bg-red fg-white">[%=kpi.unit%]</span>[%}%]
                       [%}else{%]
                       [%=kpi.value.getValue()%]
                       [%}%]
