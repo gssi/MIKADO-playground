@@ -1,0 +1,11 @@
+var instances = M!EObject.all;
+var kpisinstances = M!Kpi.all.size().println();
+var setfeatures = 0;
+for (i in instances) { 
+	var features = i.eClass.eStructuralFeatures;
+	for (f in features) { 
+		if(i.eGet(f).isDefined())setfeatures++;
+	}
+	}
+	(setfeatures+instances.size()).println();
+	

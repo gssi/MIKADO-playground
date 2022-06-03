@@ -14,7 +14,8 @@ Parameter: {name: NoiseLevel},
 Parameter: {name: districtPopPerc},
 Parameter: {name: countrysideTemp},
 Parameter: {name: cityTemp},
-Parameter: {name: humidity}
+Parameter: {name: humidity},
+Parameter: {name: illuminance}
 }, 
 kpis: {
 Kpi: { 
@@ -72,7 +73,7 @@ value: { valuetype: {
     AggregatedRealValue: { oper: MULT, targetvalue: 100.0, values:{
     RealValue: {parameter: districtPopPerc},    
     AggregatedBoolValue: { oper: GT, targetvalue: true, 
-    values: { RealValue: {parameter: NoiseLevel}, StaticRealValue: {actualizedvalue: 45.0}}}}}
+    values: { RealValue: {parameter: NoiseLevel}, StaticRealValue: {actualizedvalue: 55.0}}}}}
 }}},
         Kpi: {
             name: AQI,
@@ -147,11 +148,9 @@ value: { valuetype: {
             description: Urban heath island,
             unit: "°C UHI max",
             value: {
-            
                 valuetype: {
-                
                     AggregatedRangedValue: {
-                    targetvalue: LOW,
+                        targetvalue: LOW,
                         oper: GET,
                 ranges: {
                 Range: {name: LOW, min: 0.0, max: 2.0}, 
@@ -183,6 +182,7 @@ value: { valuetype: {
             description: Humidity level,
             units: "%RHm",
             value: {
+                
                 valuetype: {
                     RealValue: {
                         targetvalue: 100.0,
@@ -193,5 +193,69 @@ value: { valuetype: {
         }
     }
 }
+},
+Dimension: {
+    name: Smart Buildings,
+    Category: {
+        name: smarthome,
+        Kpi: {
+            name: confort,
+            description: Confort level in smart buildings,
+            units: 0-1 level,
+            value: {
+                valuetype: {
+                    AggregatedRealValue: {
+                      oper: SUM,
+                      targetvalue: 1,
+                      values: {
+                    AggregatedRealValue: {
+                        oper: MULT,
+                      
+                        values: {
+                            AggregatedRealValue: {
+                                oper: IN,
+                                values: {
+                                    StaticRealValue: {actualizedvalue: 20.0},
+                                    RealValue: {parameter: countrysideTemp},
+                                    StaticRealValue: {actualizedvalue: 32.0}
+                                }
+                            },
+                            StaticRealValue: {actualizedvalue: 0.33}
+                        }
+                    },
+                    AggregatedRealValue: {
+                        oper: MULT,
+                      
+                        values: {
+                            AggregatedRealValue: {
+                                oper: IN,
+                                values: {
+                                    StaticRealValue: {actualizedvalue: 40.0},
+                                    RealValue: {parameter: humidity},
+                                    StaticRealValue: {actualizedvalue: 46.0}
+                                }
+                            },
+                            StaticRealValue: {actualizedvalue: 0.33}
+                        }
+                    },
+                    AggregatedRealValue: {
+                        oper: MULT,
+                      
+                        values: {
+                            AggregatedRealValue: {
+                                oper: IN,
+                                values: {
+                                    StaticRealValue: {actualizedvalue: 300.0},
+                                    RealValue: {parameter: illuminance},
+                                    StaticRealValue: {actualizedvalue: 360.0}
+                                }
+                            },
+                            StaticRealValue: {actualizedvalue: 0.33}
+                        }
+                    }
+                }}}
+            }
+        }
+    }
 }
 }

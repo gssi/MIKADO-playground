@@ -146,6 +146,8 @@ enum Operation{
 	MULT=10;
 	GT=11;
 	LT=12;
+	IN=13;
+	CEN=14;
 }
 
 

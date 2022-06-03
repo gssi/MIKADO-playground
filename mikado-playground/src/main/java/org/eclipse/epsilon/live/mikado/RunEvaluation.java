@@ -12,8 +12,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.eclipse.epsilon.egl.IEglModule;
 import org.eclipse.epsilon.emc.emf.InMemoryEmfModel;
@@ -24,6 +26,7 @@ import org.eclipse.epsilon.etl.EtlModule;
 import org.eclipse.epsilon.evl.EvlModule;
 import org.eclipse.epsilon.evl.execute.UnsatisfiedConstraint;
 import org.eclipse.epsilon.flexmi.actions.InMemoryFlexmiModel;
+import org.threeten.bp.Instant;
 
 import com.google.common.io.Resources;
 import com.google.gson.JsonObject;
@@ -41,8 +44,6 @@ public class RunEvaluation extends EpsilonLiveFunction{
 			bos, response);
 			
 			response.addProperty("output", bos.toString());
-	
-		
 		
 	}
 	
@@ -91,6 +92,7 @@ public void run( String kpiFlexmi,  String scFlexmi, OutputStream outputStream, 
 		module.getContext().getModelRepository().addModel(targetModel);
 		
 		module.execute();
+		
 		
 		//to save the evaluated model on the server
 		targetModel.store();

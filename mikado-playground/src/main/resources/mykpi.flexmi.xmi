@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="ASCII"?>
+<kpi:KpiModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:kpi="http://cs.gssi.it/kpi" xmi:id="_19OegNtmEeywB7TZTGBD2g">
+  <dimensions xmi:id="_19OegdtmEeywB7TZTGBD2g" name="Environment">
+    <categories xmi:id="_19OegttmEeywB7TZTGBD2g" name="Public Spaces">
+      <kpis xmi:id="_19Oeg9tmEeywB7TZTGBD2g" name="GA" description="Green Areas" unit="green spaces">
+        <value xmi:id="_19OehNtmEeywB7TZTGBD2g">
+          <valuetype xsi:type="kpi:AggregatedRealValue" xmi:id="_19OehdtmEeywB7TZTGBD2g" oper="DIV" targetvalue="100.0">
+            <values xsi:type="kpi:RealValue" xmi:id="_19OehttmEeywB7TZTGBD2g" parameter="_19OemdtmEeywB7TZTGBD2g"/>
+            <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19Oeh9tmEeywB7TZTGBD2g" oper="MULT">
+              <values xsi:type="kpi:RealValue" xmi:id="_19OeiNtmEeywB7TZTGBD2g" parameter="_19OemNtmEeywB7TZTGBD2g"/>
+              <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19OeidtmEeywB7TZTGBD2g" oper="DIV">
+                <values xsi:type="kpi:StaticRealValue" xmi:id="_19OeittmEeywB7TZTGBD2g" actualizedvalue="1.0"/>
+                <values xsi:type="kpi:StaticRealValue" xmi:id="_19Oei9tmEeywB7TZTGBD2g" actualizedvalue="100000.0"/>
+              </values>
+            </values>
+          </valuetype>
+        </value>
+      </kpis>
+      <kpis xmi:id="_19OejNtmEeywB7TZTGBD2g" name="BN" description="Bike path length" unit="KM">
+        <value xmi:id="_19OejdtmEeywB7TZTGBD2g">
+          <valuetype xsi:type="kpi:AggregatedRealValue" xmi:id="_19OejttmEeywB7TZTGBD2g" oper="DIV" targetvalue="230.0">
+            <values xsi:type="kpi:RealValue" xmi:id="_19Oej9tmEeywB7TZTGBD2g" parameter="_19OemttmEeywB7TZTGBD2g"/>
+            <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19OekNtmEeywB7TZTGBD2g" oper="MULT">
+              <values xsi:type="kpi:RealValue" xmi:id="_19OekdtmEeywB7TZTGBD2g" parameter="_19OemNtmEeywB7TZTGBD2g"/>
+              <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19OekttmEeywB7TZTGBD2g" oper="DIV">
+                <values xsi:type="kpi:StaticRealValue" xmi:id="_19Oek9tmEeywB7TZTGBD2g" actualizedvalue="1.0"/>
+                <values xsi:type="kpi:StaticRealValue" xmi:id="_19OelNtmEeywB7TZTGBD2g" actualizedvalue="100000.0"/>
+              </values>
+            </values>
+          </valuetype>
+        </value>
+      </kpis>
+      <kpis xmi:id="_19OeldtmEeywB7TZTGBD2g" name="TMS" description="availability of transport monitoring service">
+        <value xmi:id="_19OelttmEeywB7TZTGBD2g">
+          <valuetype xsi:type="kpi:BoolValue" xmi:id="_19Oel9tmEeywB7TZTGBD2g" parameter="_19Oem9tmEeywB7TZTGBD2g"/>
+        </value>
+      </kpis>
+      <parameters xmi:id="_19OemNtmEeywB7TZTGBD2g" name="citypop"/>
+      <parameters xmi:id="_19OemdtmEeywB7TZTGBD2g" name="TGA"/>
+      <parameters xmi:id="_19OemttmEeywB7TZTGBD2g" name="BLP"/>
+      <parameters xmi:id="_19Oem9tmEeywB7TZTGBD2g" name="TM"/>
+      <parameters xmi:id="_19OenNtmEeywB7TZTGBD2g" name="NoiseLevel"/>
+      <parameters xmi:id="_19OendtmEeywB7TZTGBD2g" name="districtPopPerc"/>
+      <parameters xmi:id="_19OenttmEeywB7TZTGBD2g" name="countrysideTemp"/>
+      <parameters xmi:id="_19Oen9tmEeywB7TZTGBD2g" name="cityTemp"/>
+      <parameters xmi:id="_19OeoNtmEeywB7TZTGBD2g" name="humidity"/>
+      <parameters xmi:id="_19OeodtmEeywB7TZTGBD2g" name="illuminance"/>
+    </categories>
+    <categories xmi:id="_19OeottmEeywB7TZTGBD2g" name="Air Quality">
+      <kpis xmi:id="_19Oeo9tmEeywB7TZTGBD2g" name="NoiseLV" description="Noise pollution" unit="%">
+        <value xmi:id="_19OepNtmEeywB7TZTGBD2g">
+          <valuetype xsi:type="kpi:AggregatedRealValue" xmi:id="_19OepdtmEeywB7TZTGBD2g" oper="MULT" targetvalue="100.0">
+            <values xsi:type="kpi:RealValue" xmi:id="_19OepttmEeywB7TZTGBD2g" parameter="_19OendtmEeywB7TZTGBD2g"/>
+            <values xsi:type="kpi:AggregatedBoolValue" xmi:id="_19Oep9tmEeywB7TZTGBD2g" oper="GT" targetvalue="true">
+              <values xsi:type="kpi:RealValue" xmi:id="_19OeqNtmEeywB7TZTGBD2g" parameter="_19OenNtmEeywB7TZTGBD2g"/>
+              <values xsi:type="kpi:StaticRealValue" xmi:id="_19OeqdtmEeywB7TZTGBD2g" actualizedvalue="55.0"/>
+            </values>
+          </valuetype>
+        </value>
+      </kpis>
+      <kpis xmi:id="_19OeqttmEeywB7TZTGBD2g" name="AQI" description="Air quality Index">
+        <value xmi:id="_19Oeq9tmEeywB7TZTGBD2g">
+          <valuetype xsi:type="kpi:AggregatedRangedValue" xmi:id="_19OerNtmEeywB7TZTGBD2g">
+            <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19OerdtmEeywB7TZTGBD2g" oper="MAX">
+              <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19OerttmEeywB7TZTGBD2g" oper="MULT">
+                <values xsi:type="kpi:StaticRealValue" xmi:id="_19Oer9tmEeywB7TZTGBD2g" actualizedvalue="100.0"/>
+                <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19OesNtmEeywB7TZTGBD2g" oper="DIV">
+                  <values xsi:type="kpi:RealValue" xmi:id="_19OesdtmEeywB7TZTGBD2g" parameter="_19PFodtmEeywB7TZTGBD2g"/>
+                  <values xsi:type="kpi:StaticRealValue" xmi:id="_19OesttmEeywB7TZTGBD2g" actualizedvalue="25.0"/>
+                </values>
+              </values>
+              <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19Oes9tmEeywB7TZTGBD2g" oper="MULT">
+                <values xsi:type="kpi:StaticRealValue" xmi:id="_19OetNtmEeywB7TZTGBD2g" actualizedvalue="100.0"/>
+                <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19OetdtmEeywB7TZTGBD2g" oper="DIV">
+                  <values xsi:type="kpi:RealValue" xmi:id="_19OetttmEeywB7TZTGBD2g" parameter="_19PFottmEeywB7TZTGBD2g"/>
+                  <values xsi:type="kpi:StaticRealValue" xmi:id="_19Oet9tmEeywB7TZTGBD2g" actualizedvalue="50.0"/>
+                </values>
+              </values>
+              <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19OeuNtmEeywB7TZTGBD2g" oper="MULT">
+                <values xsi:type="kpi:StaticRealValue" xmi:id="_19OeudtmEeywB7TZTGBD2g" actualizedvalue="100.0"/>
+                <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19OeuttmEeywB7TZTGBD2g" oper="DIV">
+                  <values xsi:type="kpi:RealValue" xmi:id="_19Oeu9tmEeywB7TZTGBD2g" parameter="_19PFo9tmEeywB7TZTGBD2g"/>
+                  <values xsi:type="kpi:StaticRealValue" xmi:id="_19OevNtmEeywB7TZTGBD2g" actualizedvalue="200.0"/>
+                </values>
+              </values>
+              <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19OevdtmEeywB7TZTGBD2g" oper="MULT">
+                <values xsi:type="kpi:StaticRealValue" xmi:id="_19OevttmEeywB7TZTGBD2g" actualizedvalue="100.0"/>
+                <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19Oev9tmEeywB7TZTGBD2g" oper="DIV">
+                  <values xsi:type="kpi:RealValue" xmi:id="_19OewNtmEeywB7TZTGBD2g" parameter="_19PFpNtmEeywB7TZTGBD2g"/>
+                  <values xsi:type="kpi:StaticRealValue" xmi:id="_19OewdtmEeywB7TZTGBD2g" actualizedvalue="180.0"/>
+                </values>
+              </values>
+              <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19OewttmEeywB7TZTGBD2g" oper="MULT">
+                <values xsi:type="kpi:StaticRealValue" xmi:id="_19Oew9tmEeywB7TZTGBD2g" actualizedvalue="100.0"/>
+                <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19OexNtmEeywB7TZTGBD2g" oper="DIV">
+                  <values xsi:type="kpi:RealValue" xmi:id="_19OexdtmEeywB7TZTGBD2g" parameter="_19PFpdtmEeywB7TZTGBD2g"/>
+                  <values xsi:type="kpi:StaticRealValue" xmi:id="_19OexttmEeywB7TZTGBD2g" actualizedvalue="350.0"/>
+                </values>
+              </values>
+            </values>
+            <ranges xmi:id="_19Oex9tmEeywB7TZTGBD2g" name="Excellent" max="30.0"/>
+            <ranges xmi:id="_19OeyNtmEeywB7TZTGBD2g" name="Good" min="30.1" max="66.0"/>
+            <ranges xmi:id="_19OeydtmEeywB7TZTGBD2g" name="Bad" min="66.1" max="150.0"/>
+            <ranges xmi:id="_19OeyttmEeywB7TZTGBD2g" name="Terrible" min="150.1" max="999.0"/>
+          </valuetype>
+        </value>
+      </kpis>
+      <kpis xmi:id="_19Oey9tmEeywB7TZTGBD2g" name="NO2 emissions" unit="ng/m3">
+        <value xmi:id="_19OezNtmEeywB7TZTGBD2g">
+          <valuetype xsi:type="kpi:AggregatedRealValue" xmi:id="_19OezdtmEeywB7TZTGBD2g" oper="DIV" targetvalue="1.0">
+            <values xsi:type="kpi:RealValue" xmi:id="_19OezttmEeywB7TZTGBD2g" parameter="_19PFo9tmEeywB7TZTGBD2g"/>
+            <values xsi:type="kpi:RealValue" xmi:id="_19Oez9tmEeywB7TZTGBD2g" parameter="_19OemNtmEeywB7TZTGBD2g"/>
+          </valuetype>
+        </value>
+      </kpis>
+      <kpis xmi:id="_19Oe0NtmEeywB7TZTGBD2g" name="PM2.5 emissions" unit="ng/m3">
+        <value xmi:id="_19Oe0dtmEeywB7TZTGBD2g">
+          <valuetype xsi:type="kpi:AggregatedRealValue" xmi:id="_19PFkNtmEeywB7TZTGBD2g" oper="DIV" targetvalue="1.0">
+            <values xsi:type="kpi:RealValue" xmi:id="_19PFkdtmEeywB7TZTGBD2g" parameter="_19PFodtmEeywB7TZTGBD2g"/>
+            <values xsi:type="kpi:RealValue" xmi:id="_19PFkttmEeywB7TZTGBD2g" parameter="_19OemNtmEeywB7TZTGBD2g"/>
+          </valuetype>
+        </value>
+      </kpis>
+      <kpis xmi:id="_19PFk9tmEeywB7TZTGBD2g" name="UHI" description="Urban heath island" unit="&#xb0;C UHI max">
+        <value xmi:id="_19PFlNtmEeywB7TZTGBD2g">
+          <valuetype xsi:type="kpi:AggregatedRangedValue" xmi:id="_19PFldtmEeywB7TZTGBD2g" targetvalue="LOW">
+            <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19PFlttmEeywB7TZTGBD2g" oper="DIFF">
+              <values xsi:type="kpi:RealValue" xmi:id="_19PFl9tmEeywB7TZTGBD2g" parameter="_19OenttmEeywB7TZTGBD2g"/>
+              <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19PFmNtmEeywB7TZTGBD2g" oper="DIV">
+                <values xsi:type="kpi:RealValue" xmi:id="_19PFmdtmEeywB7TZTGBD2g" parameter="_19Oen9tmEeywB7TZTGBD2g"/>
+                <values xsi:type="kpi:StaticRealValue" xmi:id="_19PFmttmEeywB7TZTGBD2g" actualizedvalue="10.0"/>
+              </values>
+            </values>
+            <ranges xmi:id="_19PFm9tmEeywB7TZTGBD2g" name="LOW" max="2.0"/>
+            <ranges xmi:id="_19PFnNtmEeywB7TZTGBD2g" name="MED" min="2.1" max="4.0"/>
+            <ranges xmi:id="_19PFndtmEeywB7TZTGBD2g" name="HI" min="4.1" max="10.0"/>
+          </valuetype>
+        </value>
+      </kpis>
+      <kpis xmi:id="_19PFnttmEeywB7TZTGBD2g" name="HumidityLV" description="Humidity level" unit="%RHm">
+        <value xmi:id="_19PFn9tmEeywB7TZTGBD2g">
+          <valuetype xsi:type="kpi:RealValue" xmi:id="_19PFoNtmEeywB7TZTGBD2g" parameter="_19OeoNtmEeywB7TZTGBD2g" targetvalue="100.0"/>
+        </value>
+      </kpis>
+      <parameters xmi:id="_19PFodtmEeywB7TZTGBD2g" name="PM2.5"/>
+      <parameters xmi:id="_19PFottmEeywB7TZTGBD2g" name="PM10"/>
+      <parameters xmi:id="_19PFo9tmEeywB7TZTGBD2g" name="NO2"/>
+      <parameters xmi:id="_19PFpNtmEeywB7TZTGBD2g" name="O3"/>
+      <parameters xmi:id="_19PFpdtmEeywB7TZTGBD2g" name="SO2"/>
+    </categories>
+  </dimensions>
+  <dimensions xmi:id="_19PFpttmEeywB7TZTGBD2g" name="Smart Buildings">
+    <categories xmi:id="_19PFp9tmEeywB7TZTGBD2g" name="smarthome">
+      <kpis xmi:id="_19PFqNtmEeywB7TZTGBD2g" name="confort" description="Confort level in smart buildings" unit="0-1 level">
+        <value xmi:id="_19PFqdtmEeywB7TZTGBD2g">
+          <valuetype xsi:type="kpi:AggregatedRealValue" xmi:id="_19PFqttmEeywB7TZTGBD2g" oper="SUM" targetvalue="1.0">
+            <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19PFq9tmEeywB7TZTGBD2g" oper="MULT">
+              <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19PFrNtmEeywB7TZTGBD2g" oper="IN">
+                <values xsi:type="kpi:StaticRealValue" xmi:id="_19PFrdtmEeywB7TZTGBD2g" actualizedvalue="20.0"/>
+                <values xsi:type="kpi:RealValue" xmi:id="_19PFrttmEeywB7TZTGBD2g" parameter="_19OenttmEeywB7TZTGBD2g"/>
+                <values xsi:type="kpi:StaticRealValue" xmi:id="_19PFr9tmEeywB7TZTGBD2g" actualizedvalue="32.0"/>
+              </values>
+              <values xsi:type="kpi:StaticRealValue" xmi:id="_19PFsNtmEeywB7TZTGBD2g" actualizedvalue="0.33"/>
+            </values>
+            <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19PFsdtmEeywB7TZTGBD2g" oper="MULT">
+              <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19PFsttmEeywB7TZTGBD2g" oper="IN">
+                <values xsi:type="kpi:StaticRealValue" xmi:id="_19PFs9tmEeywB7TZTGBD2g" actualizedvalue="40.0"/>
+                <values xsi:type="kpi:RealValue" xmi:id="_19PFtNtmEeywB7TZTGBD2g" parameter="_19OeoNtmEeywB7TZTGBD2g"/>
+                <values xsi:type="kpi:StaticRealValue" xmi:id="_19PFtdtmEeywB7TZTGBD2g" actualizedvalue="46.0"/>
+              </values>
+              <values xsi:type="kpi:StaticRealValue" xmi:id="_19PFtttmEeywB7TZTGBD2g" actualizedvalue="0.33"/>
+            </values>
+            <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19PFt9tmEeywB7TZTGBD2g" oper="MULT">
+              <values xsi:type="kpi:AggregatedRealValue" xmi:id="_19PFuNtmEeywB7TZTGBD2g" oper="IN">
+                <values xsi:type="kpi:StaticRealValue" xmi:id="_19PFudtmEeywB7TZTGBD2g" actualizedvalue="300.0"/>
+                <values xsi:type="kpi:RealValue" xmi:id="_19PFuttmEeywB7TZTGBD2g" parameter="_19OeodtmEeywB7TZTGBD2g"/>
+                <values xsi:type="kpi:StaticRealValue" xmi:id="_19PFu9tmEeywB7TZTGBD2g" actualizedvalue="360.0"/>
+              </values>
+              <values xsi:type="kpi:StaticRealValue" xmi:id="_19PFvNtmEeywB7TZTGBD2g" actualizedvalue="0.33"/>
+            </values>
+          </valuetype>
+        </value>
+      </kpis>
+    </categories>
+  </dimensions>
+</kpi:KpiModel>

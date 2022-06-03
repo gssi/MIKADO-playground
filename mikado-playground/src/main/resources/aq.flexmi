@@ -5,25 +5,24 @@ city: L'Aquila,
 sources: { 
     Stakeholder: { name: Comune, organization: AQ},
     Stakeholder: { name: AMA, organization: PublicTransport},
-    
     MonitoringInfrastructure: { name: SmartEnvironment, devices: 
     { Sensor: {name: Tinkerforge, model: A43dS} }},
-    ExternalService: {name: getPM10, url: http://localhost:8080/airquality, 
+    ExternalService: {name: getPM10, url: http://raspberrypi.local:8080/airquality, 
     properties: {Property: {name: pm10, nestedproperty: {name: value}}}},
-    ExternalService: {name: getPM25, url: http://localhost:8080/airquality, 
+    ExternalService: {name: getPM25, url: http://raspberrypi.local:8080/airquality, 
       properties: {Property: {name: pm25, nestedproperty: {name: value}}}
     },
-    ExternalService: {name: getNoise, url: http://localhost:8080/noise, 
+    ExternalService: {name: getNoise, url: http://raspberrypi.local:8080/noise, 
       properties: {Property: {name: noise, nestedproperty: {name: value}}}
     },
-    ExternalService: {name: getCountrySideTemp, url: http://localhost:8080/airquality, 
+    ExternalService: {name: getCountrySideTemp, url: http://raspberrypi.local:8080/airquality, 
       properties: {Property: {name: temperature, nestedproperty: {name: value}}}
     },
-    ExternalService: {name: getHumidity, url: http://localhost:8080/airquality, 
+    ExternalService: {name: getHumidity, url: http://raspberrypi.local:8080/airquality, 
       properties: {Property: {name: humidity, nestedproperty: {name: value}}}
     },
-    ExternalService: {
-        name: getTemp, 
+    Opendata: {
+        name: openweather, 
         url: "https://api.openweathermap.org/data/2.5/weather?lat=42.37035913220874&lon=13.369458101852755&appid=fdb82d2d70f50f86b201092b818fdb76", 
         properties: {
             Property: {name: main, nestedproperty: {name: temp}}
@@ -50,7 +49,7 @@ data: {
     RealValue: {name: O3, units: ng/m3, value: 25.0,  src: SmartEnvironment},
     RealValue: {name: SO2, units: ng/m3,  value: 0.20,  src: SmartEnvironment},
     RealValue: {name: countrysideTemp, units: °C, value: 38.0, src: getCountrySideTemp},
-    RealValue: {name: cityTemp, units: °C, value: 32.0, src: getTemp},
+    RealValue: {name: cityTemp, units: °C, value: 32.0},
     RealValue: {name: humidity, units: "%RHm", src: getHumidity, value: 3.0}
 }
 },
