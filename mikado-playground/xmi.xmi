@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<kpi:KpiModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:kpi="http://cs.gssi.it/kpi" subject="L'Aquila" evaldate="2022-06-03T12:24:35.974+0200">
+<kpi:KpiModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:kpi="http://cs.gssi.it/kpi" subject="L'Aquila" evaldate="2023-03-15T18:51:57.316+0100">
   <dimensions name="Environment">
     <categories name="Public Spaces">
       <kpis name="GA" description="Green Areas" unit="green spaces">
@@ -52,7 +52,7 @@
           <valuetype xsi:type="kpi:AggregatedRealValue" oper="MULT" targetvalue="100.0">
             <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.5" actualizedvalue="6.0"/>
             <values xsi:type="kpi:AggregatedBoolValue" oper="GT" targetvalue="true">
-              <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.4" actualizedvalue="52.0"/>
+              <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.4" actualizedvalue="46.0"/>
               <values xsi:type="kpi:StaticRealValue" actualizedvalue="55.0"/>
             </values>
           </valuetype>
@@ -60,19 +60,19 @@
       </kpis>
       <kpis name="AQI" description="Air quality Index">
         <value>
-          <valuetype xsi:type="kpi:AggregatedRangedValue" actualizedvalue="Good">
-            <values xsi:type="kpi:AggregatedRealValue" oper="MAX" actualizedvalue="36.0">
-              <values xsi:type="kpi:AggregatedRealValue" oper="MULT" actualizedvalue="36.0">
+          <valuetype xsi:type="kpi:AggregatedRangedValue" actualizedvalue="undefined range">
+            <values xsi:type="kpi:AggregatedRealValue" oper="MAX" actualizedvalue="13332.0009765625">
+              <values xsi:type="kpi:AggregatedRealValue" oper="MULT" actualizedvalue="13332.0009765625">
                 <values xsi:type="kpi:StaticRealValue" actualizedvalue="100.0"/>
-                <values xsi:type="kpi:AggregatedRealValue" oper="DIV" actualizedvalue="0.36000001430511475">
-                  <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.1/@parameters.0" actualizedvalue="9.0"/>
+                <values xsi:type="kpi:AggregatedRealValue" oper="DIV" actualizedvalue="133.32000732421875">
+                  <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.1/@parameters.0" actualizedvalue="3333.0"/>
                   <values xsi:type="kpi:StaticRealValue" actualizedvalue="25.0"/>
                 </values>
               </values>
-              <values xsi:type="kpi:AggregatedRealValue" oper="MULT" actualizedvalue="12.0">
+              <values xsi:type="kpi:AggregatedRealValue" oper="MULT" actualizedvalue="6666.00048828125">
                 <values xsi:type="kpi:StaticRealValue" actualizedvalue="100.0"/>
-                <values xsi:type="kpi:AggregatedRealValue" oper="DIV" actualizedvalue="0.11999999731779099">
-                  <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.1/@parameters.1" actualizedvalue="6.0"/>
+                <values xsi:type="kpi:AggregatedRealValue" oper="DIV" actualizedvalue="66.66000366210938">
+                  <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.1/@parameters.1" actualizedvalue="3333.0"/>
                   <values xsi:type="kpi:StaticRealValue" actualizedvalue="50.0"/>
                 </values>
               </values>
@@ -115,19 +115,19 @@
       </kpis>
       <kpis name="PM2.5 emissions" unit="ng/m3">
         <value>
-          <valuetype xsi:type="kpi:AggregatedRealValue" oper="DIV" actualizedvalue="1.2857142428401858E-4" targetvalue="1.0">
-            <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.1/@parameters.0" actualizedvalue="9.0"/>
+          <valuetype xsi:type="kpi:AggregatedRealValue" oper="DIV" actualizedvalue="0.04761428385972977" targetvalue="1.0">
+            <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.1/@parameters.0" actualizedvalue="3333.0"/>
             <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.0" actualizedvalue="70000.0"/>
           </valuetype>
         </value>
       </kpis>
       <kpis name="UHI" description="Urban heath island" unit="&#xb0;C UHI max">
         <value>
-          <valuetype xsi:type="kpi:AggregatedRangedValue" actualizedvalue="LOW" targetvalue="LOW">
-            <values xsi:type="kpi:AggregatedRealValue" oper="DIFF" actualizedvalue="0.5049972534179688">
-              <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.6" actualizedvalue="30.799999237060547"/>
-              <values xsi:type="kpi:AggregatedRealValue" oper="DIV" actualizedvalue="30.295001983642578">
-                <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.7" actualizedvalue="302.95001220703125"/>
+          <valuetype xsi:type="kpi:AggregatedRangedValue" actualizedvalue="MED" targetvalue="LOW">
+            <values xsi:type="kpi:AggregatedRealValue" oper="DIFF" actualizedvalue="2.9750022888183594">
+              <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.6" actualizedvalue="24.719999313354492"/>
+              <values xsi:type="kpi:AggregatedRealValue" oper="DIV" actualizedvalue="27.69500160217285">
+                <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.7" actualizedvalue="276.95001220703125"/>
                 <values xsi:type="kpi:StaticRealValue" actualizedvalue="10.0"/>
               </values>
             </values>
@@ -139,7 +139,7 @@
       </kpis>
       <kpis name="HumidityLV" description="Humidity level" unit="%RHm">
         <value>
-          <valuetype xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.8" actualizedvalue="38.540000915527344" targetvalue="100.0"/>
+          <valuetype xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.8" actualizedvalue="29.139999389648438" targetvalue="100.0"/>
         </value>
       </kpis>
       <parameters name="PM2.5"/>
@@ -157,7 +157,7 @@
             <values xsi:type="kpi:AggregatedRealValue" oper="MULT" actualizedvalue="0.33000001311302185">
               <values xsi:type="kpi:AggregatedRealValue" oper="IN" actualizedvalue="1.0">
                 <values xsi:type="kpi:StaticRealValue" actualizedvalue="20.0"/>
-                <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.6" actualizedvalue="30.799999237060547"/>
+                <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.6" actualizedvalue="24.700000762939453"/>
                 <values xsi:type="kpi:StaticRealValue" actualizedvalue="32.0"/>
               </values>
               <values xsi:type="kpi:StaticRealValue" actualizedvalue="0.33"/>
@@ -165,7 +165,7 @@
             <values xsi:type="kpi:AggregatedRealValue" oper="MULT">
               <values xsi:type="kpi:AggregatedRealValue" oper="IN">
                 <values xsi:type="kpi:StaticRealValue" actualizedvalue="40.0"/>
-                <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.8" actualizedvalue="38.540000915527344"/>
+                <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.8" actualizedvalue="29.139999389648438"/>
                 <values xsi:type="kpi:StaticRealValue" actualizedvalue="46.0"/>
               </values>
               <values xsi:type="kpi:StaticRealValue" actualizedvalue="0.33"/>
@@ -173,7 +173,7 @@
             <values xsi:type="kpi:AggregatedRealValue" oper="MULT">
               <values xsi:type="kpi:AggregatedRealValue" oper="IN">
                 <values xsi:type="kpi:StaticRealValue" actualizedvalue="300.0"/>
-                <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.9" actualizedvalue="144.0"/>
+                <values xsi:type="kpi:RealValue" parameter="//@dimensions.0/@categories.0/@parameters.9" actualizedvalue="34.0"/>
                 <values xsi:type="kpi:StaticRealValue" actualizedvalue="360.0"/>
               </values>
               <values xsi:type="kpi:StaticRealValue" actualizedvalue="0.33"/>
