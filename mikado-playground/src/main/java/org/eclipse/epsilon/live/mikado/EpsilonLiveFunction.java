@@ -94,8 +94,8 @@ public abstract class EpsilonLiveFunction implements HttpFunction {
 		
 		EmfaticResource emfaticResource = new EmfaticResource(URI.createURI("emfatic.emf")); 
 		emfaticResource.load(new ByteArrayInputStream(emfatic.getBytes()), null); 
-		if (emfaticResource.getParseContext().hasErrors()) {
-			throw new RuntimeException(emfaticResource.getParseContext().getMessages()[0].getMessage());
+		if (emfaticResource.getErrors().size()>0) {
+			throw new RuntimeException(emfaticResource.getErrors().toString());
 		}
 		else {
 			return (EPackage) emfaticResource.getContents().get(0);

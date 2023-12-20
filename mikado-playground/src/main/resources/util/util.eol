@@ -1,6 +1,6 @@
 operation Real getRounded():Real{
 var decimal = new Native("java.text.DecimalFormat");
-decimal.applyPattern("#.#####");
+decimal.applyPattern("#,#####");
 return decimal.format(self).asReal();
 //return self.asReal();
 }
